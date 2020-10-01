@@ -1,0 +1,16 @@
+---
+version: "2.1"
+services:
+  pwndrop:
+    image: linuxserver/pwndrop
+    container_name: pwndrop
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Nassau
+      - SECRET_PATH=/pwndrop #optional
+    volumes:
+      - ./data:/config
+    ports:
+      - 4040:8080
+    restart: unless-stopped
