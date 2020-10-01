@@ -1,0 +1,12 @@
+upstream plex {
+  server        127.0.0.1:32400;
+}
+
+server {
+  listen        80;
+  server_name   plex.tba.lan;
+
+  location / {
+    proxy_pass  http://10.8.0.160:32400;
+  }
+}

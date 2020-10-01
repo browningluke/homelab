@@ -1,0 +1,12 @@
+upstream qbittorrent {
+  server        10.8.0.160:8080;
+}
+
+server {
+  listen        80;
+  server_name   qbt.tba.lan;
+
+  location / {
+    proxy_pass  http://10.8.0.160:8080;
+  }
+}
