@@ -1,13 +1,29 @@
-## Table of Contents
-1. Server Configuration
-2. MergerFS
-3. Synced Android Folders & GDrive (rclone)
-4. Docker Contaieners
-5. Google Apps Scripts
+# TBA - Home Lab 
+- [TBA - Home Lab](#tba---home-lab)
+	- [Server Configurations](#server-configurations)
+	- [Summary](#summary)
+	- [MergerFS](#mergerfs)
+	- [qBittorrent](#qbittorrent)
+	- [Plex](#plex)
+	- [Docker Containers](#docker-containers)
+			- [***dashmachine***](#dashmachine)
+			- [***portainer***](#portainer)
+			- [***code-server***](#code-server)
+			- [***plex-stack***](#plex-stack)
+			- [***pwndrop***](#pwndrop)
+			- [***pyload***](#pyload)
+			- [***reverse***](#reverse)
+			- [***handbrake***](#handbrake)
+	- [Synced Android Folders & GDrive (rclone)](#synced-android-folders--gdrive-rclone)
+		- [**rclone**](#rclone)
+	- [Pihole](#pihole)
+	- [Google Apps Scripts](#google-apps-scripts)
 
 ## Server Configurations
 
-- BTC 4G MiFi
+**ISP**
+- Service Provider: `Aliv`
+- Modem: `Huawei B2338-168 4G LTE`
 
 **boxie.lan**
 - Proxmox VE 6.2-4
@@ -31,18 +47,23 @@
 - 4GB RAM
 - 256GB SD Card
 
+**Domains**
+- thebritishaccent.net
+- Local (behind CGNAT): `tba.lan`
+
 ## Summary
 
 TODO: Explaination of what server does, any scripts used, usefullness, etc.
 
 ## MergerFS
 
-Directory structure desired.
+Directory structure.
 ```
 /mnt/virt
 	/mnt/plex1
 	/mnt/plex2
 	/mnt/usbdrive
+	/mnt/BIGBOI
 ```
 
 MergerFS options
@@ -51,56 +72,98 @@ MergerFS options
 ```
 
 Important item:
-- use_ino is for hard linking with Sonarr/Radarr.
+- `use_ino` is for hard linking with Sonarr/Radarr.
 
 ## qBittorrent
-
 TODO: Outline of categories, private trackers, seed ratios, etc.
 
 ## Plex
+Libraries:
+  - Anime
+  - Anime Movies
+  - Movies
+  - MD Movies
+  - MD TV
 
-TODO: Outline of shared ports, library structure, auth/local subnets, etc.
+No-auth networks: `10.8.0.0/24`
+LAN networks: `0.0.0.0/24` (while in docker container)
 
 ## Docker Containers
 
-1. [dashmachine](https://gist.github.com/TheBritishAccent/7704e8a6025d54172a8eb8d203fa2765#file-docker-compose-yml-L4) - [rmountjoy/dashmachine](https://hub.docker.com/r/rmountjoy/dashmachine)
-2. [handbrake](https://gist.github.com/TheBritishAccent/7704e8a6025d54172a8eb8d203fa2765#file-docker-compose-yml-L12) - [jlesage/handbrake](https://hub.docker.com/r/jlesage/handbrake)
-3. [jackett](https://gist.github.com/TheBritishAccent/7704e8a6025d54172a8eb8d203fa2765#file-docker-compose-yml-L21) - [linuxserver/jackett](https://hub.docker.com/r/linuxserver/jackett)
-4. [komga](https://gist.github.com/TheBritishAccent/7704e8a6025d54172a8eb8d203fa2765#file-docker-compose-yml-L34) - [gotson/komga](https://hub.docker.com/r/gotson/komga)
-5. [pms-docker](https://gist.github.com/TheBritishAccent/7704e8a6025d54172a8eb8d203fa2765#file-docker-compose-yml-L47) - [plexinc/pms-docker](https://hub.docker.com/r/plexinc/pms-docker)
-6. [qbittorrentvpn](https://gist.github.com/TheBritishAccent/7704e8a6025d54172a8eb8d203fa2765#file-docker-compose-yml-L69) - [markusmcnugen/qbittorrentvpn](https://hub.docker.com/r/markusmcnugen/qbittorrentvpn)
-7. [radarr](https://gist.github.com/TheBritishAccent/7704e8a6025d54172a8eb8d203fa2765#file-docker-compose-yml-L89) - [linuxserver/radarr](https://hub.docker.com/r/linuxserver/radarr)
-8. [sonarr](https://gist.github.com/TheBritishAccent/7704e8a6025d54172a8eb8d203fa2765#file-docker-compose-yml-L103) - [linuxserver/sonarr](https://hub.docker.com/r/linuxserver/sonarr)
-9. [tautulli](https://gist.github.com/TheBritishAccent/7704e8a6025d54172a8eb8d203fa2765#file-docker-compose-yml-L116) - [linuxserver/tautulli](https://hub.docker.com/r/linuxserver/tautulli)
-10. [telegraf](https://gist.github.com/TheBritishAccent/7704e8a6025d54172a8eb8d203fa2765#file-docker-compose-yml-L129) - [telegraf](https://hub.docker.com/_/telegraf)
-
 #### ***dashmachine***
-Description: ree\
-Host Server: `(boxie.lan / pi3.lan / pi4.lan)`\
-docker-compose file: `x.yml`\
-DockerHub repo: `lmao`\
+Description: Central dashboard for all these services.\
+Host Server: `boxie.lan`\
+Accessible from: `dash.tba.lan`\
+docker-compose file: [dashmachine.yml](dashmachine/docker-compose.yml)\
+DockerHub repo: [rmountjoy/dashmachine](https://hub.docker.com/r/rmountjoy/dashmachine)
+
+#### ***portainer***
+Description: Manage all of these docker containers.\
+Host Server: `boxie.lan`\
+Accessible from: `port.tba.lan`\
+docker-compose file: [portainer.yml](portainer/docker-compose.yml)\
+DockerHub repo: [jlesage/handbrake](https://hub.docker.com/r/jlesage/handbrake)
+
+#### ***code-server***
+Description: Code from any browser.\
+Host Server: `boxie.lan`\
+Accessible from: `handbrake.tba.lan`\
+docker-compose file: [handbrake.yml](handbrake/docker-compose.yml)\
+DockerHub repo: [jlesage/handbrake](https://hub.docker.com/r/jlesage/handbrake)
+
+#### ***plex-stack***
+Description: Everything you could need (maybe?) for a plex server.\
+Host Server: `boxie.lan`\
+docker-compose file: [plex-stack.yml](plex-stack/docker-compose.yml)\
+Containers:
+  - plex:
+    - Accessible from: `plex.tba.lan`
+	- DockerHub repo: [plexinc/pms-docker](https://hub.docker.com/r/plexinc/pms-docker)
+  - jacket: 
+    - Accessible from: `jackett.tba.lan`
+	- DockerHub repo: [linuxserver/jackett](https://hub.docker.com/r/linuxserver/jackett)
+  - ombi:
+    - Accessible from: `ombi.tba.lan`
+	- DockerHub repo: [linuxserver/ombi](https://hub.docker.com/r/linuxserver/ombi)
+  - qbittorrentvpn:
+    - Accessible from: `qbt.tba.lan`
+	- DockerHub repo: [markusmcnugen/qbittorrentvpn](https://hub.docker.com/r/markusmcnugen/qbittorrentvpn)
+  - radarr:
+    - Accessible from: `radarr.tba.lan`
+	- DockerHub repo: [linuxserver/radarr](https://hub.docker.com/r/linuxserver/radarr)
+  - sonarr:
+    - Accessible from: `sonarr.tba.lan`
+	- DockerHub repo: [linuxserver/sonarr](https://hub.docker.com/r/linuxserver/sonarr)
+  - tautulli:
+    - Accessible from: `tautulli.tba.lan`
+	- DockerHub repo: [linuxserver/tautulli](https://hub.docker.com/r/linuxserver/tautulli)
+
+#### ***pwndrop***
+Description: Used as a file sharing page. Has way more potential than I'm using it for.\
+Host Server: `boxie.lan`\
+Accessible from: `pwn.tba.lan`\
+docker-compose file: [pwndrop.yml](pwndrop/docker-compose.yml)\
+DockerHub repo: [linuxserver/pwndrop](https://hub.docker.com/r/linuxserver/pwndrop)
+
+#### ***pyload***
+Description: Download files on my HS that could take a while.\
+Host Server: `boxie.lan`\
+Accessible from: `pyload.tba.lan`\
+docker-compose file: [pyload.yml](pyload/docker-compose.yml)\
+DockerHub repo: [linuxserver/pyload](https://hub.docker.com/r/linuxserver/pyload)
+
+#### ***reverse***
+Description: All that sweet reverse proxy goodness.\
+Host Server: `boxie.lan`\
+docker-compose file: [nginx.yml](nginx/docker-compose.yml)\
+DockerHub repo: [jlesage/handbrake](https://hub.docker.com/_/nginx)
 
 #### ***handbrake***
-Description: ree\
-Host Server: `(boxie.lan / pi3.lan / pi4.lan)`\
-docker-compose file: `x.yml`\
-DockerHub repo: `lmao`\
-
-#### ***(friendly-name)***
-Description: ree\
-Host Server: `(boxie.lan / pi3.lan / pi4.lan)`\
-docker-compose file: `x.yml`\
-DockerHub repo: `lmao`\
-Ports exposed (internal -> external):
-```
-	xxxx -> xxxx/tcp
-```
-Mounts:
-```
-	.../.../x -> /.../x
-```
-
-TODO: add rest of containers here
+Description: Converting video codecs and file formats.\
+Host Server: `boxie.lan`\
+Accessible from: `handbrake.tba.lan`\
+docker-compose file: [handbrake.yml](handbrake/docker-compose.yml)\
+DockerHub repo: [jlesage/handbrake](https://hub.docker.com/r/jlesage/handbrake)
 
 
 ## Synced Android Folders & GDrive (rclone)
@@ -117,9 +180,9 @@ The directory structure of `android_sync`, of which `Anime` gets uploaded to GDr
 		./*.(png/jpeg/gif/...)
 ```
 
-### rclone
+### **rclone**
 
-Remotes
+**Remotes**
 | Name   | Type  |
 |--------|-------|
 | crypt  | crypt |
@@ -130,12 +193,30 @@ Differences in the Anime directory are checked and uploaded to Google Drive via 
 
 Crontab entry:
 ```
-0 0/12 * * * rclone copy ~/android_sync/Anime/ crypt:anime/ -P && /usr/bin/curl https://hc-ping.com/e760d558-228b-4b62-a7dc-a4062c6615ec &>> ~/backup.log
+0 0/12 * * * rclone copy ~/android_sync/Anime/ crypt:anime/ -P && /usr/bin/curl %HEALTHCHECK_URL% &>> ~/backup.log
 ```
 
 ## Pihole
-
-TODO: Add blocklists
+Blocklists:
+```
+- https://raw.githubusercontent.com/d43m0nhLInt3r/socialblocklists/master/TikTok/tiktokblocklist.txt
+- https://dbl.oisd.nl
+- https://hosts-file.net/ad_servers.txt
+- https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt
+- https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt
+- http://sysctl.org/cameleon/hosts
+- https://mirror1.malwaredomains.com/files/justdomains
+- https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
+```
+Rough total of blocked domains (as of 2020-10-10): `988,681`
+Local DNS domains:
+	- boxie.lan -> `10.8.0.116`
+    - pi3.lan   -> `10.8.0.161`
+    - pi4.lan   -> `10.8.0.109`
+    - proxmox.lan -> `10.8.0.116`
+    - tower.lan -> `10.8.0.130`
+    - ubuntu.lan -> `10.8.0.160`
+    - *.tba.lan -> `10.8.0.160` (reverse proxy)
 
 ## Google Apps Scripts
 
