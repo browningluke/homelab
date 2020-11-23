@@ -1,0 +1,23 @@
+version: "3.7"
+services:
+
+  caddy:
+    image: caddy
+    container_name: caddy
+    hostname: caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - DOMAIN
+      - CERTPATH
+      - KEYPATH
+      - TLSEMAIL
+      - LOCAL_IP
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./data:/data
+      - ./config:/config
+      - ./certs:/etc/pki/tls/certs
+      - ./keys:/etc/pki/tls/private

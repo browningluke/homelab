@@ -1,0 +1,1 @@
+@reboot /bin/bash /etc/iptables/add-openvpn-rules.sh

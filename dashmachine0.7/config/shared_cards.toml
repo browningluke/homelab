@@ -1,0 +1,22 @@
+# ['nav']
+# list.items = [
+#     {icon = 'keyboard_arrow_right', name = 'General', onpress = {href = 'main', target = 'dashboard'}},
+#     {icon = 'school', name = 'School', onpress = {href = 'school', target = 'dashboard'}},
+#     {icon = 'movie', name = 'Media', onpress = {href = 'media', target = 'dashboard'}},
+#     {icon = 'dns', name = 'Services', onpress = {href = 'services', target = 'dashboard'}},
+# ]
+
+['nav']
+list.items = [
+    {icon = 'keyboard_arrow_right', name = 'General', onpress = {href = 'main', target = 'dashboard'}},
+    {icon = 'school', name = 'School', onpress = {href = 'school', target = 'dashboard'}},
+    {icon = 'movie', name = 'Media', onpress = {href = 'media', target = 'dashboard'}},
+    {icon = 'dns', name = 'Services', onpress = {href = 'services', target = 'dashboard'}},
+]
+card.classes = 'left-side-nav'
+
+
+['Time']
+title = ''
+card.full-width = true
+content.html = 'text.html'
