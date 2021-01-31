@@ -1,0 +1,310 @@
+# {
+#   debug
+# }
+
+auth.{$DOMAIN} {
+  route /* {
+    auth_portal {
+      path /
+      backends {
+        local_backend {
+          method local
+          path /etc/caddy/auth/local/users.json
+          realm local
+        }
+        github_oauth2_backend {
+          method oauth2
+          realm github
+          provider github
+          client_id {$GITHUB_ID}
+          client_secret {$GITHUB_SECRET}
+          scopes user
+          user github.com/TheBritishAccent add role superadmin
+        }
+      }
+      jwt {
+        token_name access_token
+        token_secret ya3eHAgPYNYNmSMCZ9Sc2tn77w22pMUz
+        token_issuer bcYiGzJiYaD88F114vpyh6l0mnMkbJZw
+        token_lifetime 3600
+      }
+      ui {
+        links {
+          "qbittorrent" https://qbt.{$DOMAIN}
+        }
+      }
+      cookie_domain {$DOMAIN}
+    }
+  }
+
+  tls {$TLSEMAIL}
+  tls {$CERTPATH} {$KEYPATH}
+}
+
+## ******************
+## Secured by 
+##  caddy-auth-portal
+## ******************
+
+# Media
+
+qbt.{$DOMAIN} {
+  route /* {
+    jwt {
+      primary yes
+      trusted_tokens {
+        static_secret {
+          token_name access_token
+          token_secret {$TOKEN_SECRET}
+          token_issuer {$TOKEN_ISSUER}
+        }
+      }
+      auth_url https://auth.{$DOMAIN}
+    }
+  reverse_proxy {$UBUNTUVM_IP}:8080
+  }
+  
+  tls {$TLSEMAIL}
+  tls {$CERTPATH} {$KEYPATH}
+}
+
+soul.{$DOMAIN} {
+  route /* {
+    jwt
+    rewrite * /soulseek{uri}
+    reverse_proxy {$UBUNTUVM_IP}:8090
+  }
+
+  tls {$TLSEMAIL}
+  tls {$CERTPATH} {$KEYPATH}
+}
+
+handbrake.{$DOMAIN} {
+  route /* {
+    jwt
+    reverse_proxy {$UBUNTUVM_IP}:5800
+  }
+
+  tls {$TLSEMAIL}
+  tls {$CERTPATH} {$KEYPATH}
+}
+
+tautulli.{$DOMAIN} {
+  route /* {
+    jwt
+    reverse_proxy {$UBUNTUVM_IP}:8282
+  }
+
+  tls {$TLSEMAIL}
+  tls {$CERTPATH} {$KEYPATH}
+}
+
+stash.{$DOMAIN} {
+  route /* {
+    jwt
+    reverse_proxy {$UBUNTUVM_IP}:9999
+  }
+
+  tls {$TLSEMAIL}
+  tls {$CERTPATH} {$KEYPATH}
+}
+
+memes.{$DOMAIN} {
+  route /* {
+    jwt
+    reverse_proxy {$UBUNTUVM_IP}:9991
+  }
+
+  tls {$TLSEMAIL}
+  tls {$CERTPATH} {$KEYPATH}
+}
+
+calibre.{$DOMAIN} {
+  route /* {
+    jwt
+    reverse_proxy {$UBUNTUVM_IP}:8083
+  }
+
+  tls {$TLSEMAIL}
+  tls {$CERTPATH} {$KEYPATH}
+}
+
+# Code
+
+jupyter.py.{$DOMAIN} {
+  route /* {
+    jwt
+    reverse_proxy {$UBUNTUVM_IP}:10001
+  }
+
+  tls {$TLSEMAIL}
+  tls {$CERTPATH} {$KEYPATH}
+}
+
+jupyter.dsci.{$DOMAIN} {
+  route /* {
+    jwt
+    reverse_proxy {$UBUNTUVM_IP}:10001
+  }
+    
+  tls {$TLSEMAIL}
+  tls {$CERTPATH} {$KEYPATH}
+}
+
+code.{$DOMAIN} {
+  route /* {
+    jwt
+    reverse_proxy {$UBUNTUVM_IP}:8443
+  }
+    
+  tls {$TLSEMAIL}
+  tls {$CERTPATH} {$KEYPATH}
+}
+
+# Utilities
+
+pyload.{$DOMAIN} {
+  route /* {
+    jwt
+    reverse_proxy {$UBUNTUVM_IP}:4000
+  }
+
+  tls {$TLSEMAIL}
+  tls {$CERTPATH} {$KEYPATH}
+}
+
+dash.{$DOMAIN} {
+  route /* {
+    jwt
+    reverse_proxy {$UBUNTUVM_IP}:5000
+  }
+
+  tls {$TLSEMAIL}
+  tls {$CERTPATH} {$KEYPATH}
+}
+
+huginn.{$DOMAIN} {
+  route /* {
+    jwt
+    reverse_proxy {$UBUNTUVM_IP}:3303
+  }
+  
+  tls {$TLSEMAIL}
+  tls {$CERTPATH} {$KEYPATH}
+}
+
+
+## ***********
+## Not Secured 
+## ***********
+
+# Media
+plex.{$DOMAIN} {
+  reverse_proxy {$UBUNTUVM_IP}:32400
+  tls {$TLSEMAIL}
+  tls {$CERTPATH} {$KEYPATH}
+}
+
+jackett.{$DOMAIN} {
+  reverse_proxy {$UBUNTUVM_IP}:9117
+  tls {$TLSEMAIL}
+  tls {$CERTPATH} {$KEYPATH}
+}
+
+ombi.{$DOMAIN} {
+  reverse_proxy {$UBUNTUVM_IP}:3579
+  tls {$TLSEMAIL}
+  tls {$CERTPATH} {$KEYPATH}
+}
+
+radarr.{$DOMAIN} {
+  reverse_proxy {$UBUNTUVM_IP}:7878
+  tls {$TLSEMAIL}
+  tls {$CERTPATH} {$KEYPATH}
+}
+
+sonarr.{$DOMAIN} {
+  reverse_proxy {$UBUNTUVM_IP}:8989
+  tls {$TLSEMAIL}
+  tls {$CERTPATH} {$KEYPATH}
+}
+
+komga.{$DOMAIN} {
+  reverse_proxy {$UBUNTUVM_IP}:8181
+  tls {$TLSEMAIL}
+  tls {$CERTPATH} {$KEYPATH}
+}
+
+# Networking
+port.{$DOMAIN} {
+  reverse_proxy {$UBUNTUVM_IP}:9000
+  tls {$TLSEMAIL}
+  tls {$CERTPATH} {$KEYPATH}
+}
+
+pihole0.{$DOMAIN} {
+  reverse_proxy {$PI4_IP}:8182
+  tls {$TLSEMAIL}
+  tls {$CERTPATH} {$KEYPATH}
+}
+
+pihole1.{$DOMAIN} {
+  reverse_proxy 10.8.0.161:8182
+  tls {$TLSEMAIL}
+  tls {$CERTPATH} {$KEYPATH}
+}
+
+# Utilities
+nextcloud.{$DOMAIN} {
+  reverse_proxy {$PI4_IP}:6969
+  tls {$TLSEMAIL}
+  tls {$CERTPATH} {$KEYPATH}
+}
+
+bookstack.{$DOMAIN} {
+  reverse_proxy {$PI4_IP}:6875
+  tls {$TLSEMAIL}
+  tls {$CERTPATH} {$KEYPATH}
+}
+
+epic.{$DOMAIN} {
+  reverse_proxy {$UBUNTUVM_IP}:3000
+  tls {$TLSEMAIL}
+  tls {$CERTPATH} {$KEYPATH}
+}
+
+home.{$DOMAIN} {
+  reverse_proxy {$PI4_IP}:8123
+  tls {$TLSEMAIL}
+  tls {$CERTPATH} {$KEYPATH}
+}
+
+xbb.{$DOMAIN} {
+  reverse_proxy {$UBUNTUVM_IP}:9080
+  tls {$TLSEMAIL}
+  tls {$CERTPATH} {$KEYPATH}
+}
+
+stats.{$DOMAIN} {
+  reverse_proxy {$PI4_IP}:8080
+  tls {$TLSEMAIL}
+  tls {$CERTPATH} {$KEYPATH}
+}
+
+scrutiny.{$DOMAIN} {
+  reverse_proxy 10.8.0.116:8080
+  tls {$TLSEMAIL}
+  tls {$CERTPATH} {$KEYPATH}
+}
+
+chat.{$DOMAIN} {
+  reverse_proxy {$UBUNTUVM_IP}:3300
+  tls {$TLSEMAIL}
+  tls {$CERTPATH} {$KEYPATH}
+}
+
+bitwarden.{$DOMAIN} {
+  reverse_proxy {$PI4_IP}:8040
+  tls {$TLSEMAIL}
+  tls {$CERTPATH} {$KEYPATH}
+}
