@@ -1,0 +1,12 @@
+upstream tautulli {
+  server        10.8.0.160:8282;
+}
+
+server {
+  listen        80;
+  server_name   tautulli.tba.lan;
+
+  location / {
+    proxy_pass  http://10.8.0.160:8282;
+  }
+}

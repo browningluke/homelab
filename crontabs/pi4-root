@@ -1,1 +1,2 @@
 @reboot /bin/bash /etc/iptables/add-openvpn-rules.sh
+43 8 * * * certbot renew

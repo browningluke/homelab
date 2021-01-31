@@ -1,0 +1,8 @@
+version: '3.3'
+services:
+    huginn:
+        ports:
+            - '3303:3000'
+        volumes:
+            - './mysql-data:/var/lib/mysql'
+        image: huginn/huginn

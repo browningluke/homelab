@@ -1,0 +1,11 @@
+version: '3.3'
+services:
+    epicgames-freegames:
+        environment:
+            - TZ=America/Nassau
+        volumes:
+            - './config:/usr/app/config:rw'
+        ports:
+            - '3000:3000'
+#        image: f3ebfb4322c3
+        image: charlocharlie/epicgames-freegames

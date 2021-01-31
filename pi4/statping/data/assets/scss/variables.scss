@@ -1,0 +1,78 @@
+/* colors used */
+$background-1: #282828;
+$background-2: #1c1c1c;
+$background-3: #363636;
+
+$main-1:#b3b3b3;
+$text-1: #b3b3b3;
+$border-color: #969696;
+$success: #306844;
+$failure: #940000;
+
+/*    Index Page      */
+$background-color: $background-1;
+$container-color: $background-2;
+$text-color: $main-1;
+$max-width: 1012px;
+$title-color: $text-1;
+$description-color: $main-1;
+$subtitle-color: $main-1;
+$mobile-card-shadow: none;
+$incidentTextColor: $main-1;
+
+$group-list-background: $background-1;
+$group-list-title: $main-1;
+$navbar-color: $main-1;
+$navbar-background: $background-2;
+$input-background: $background-3;
+$input-color: $text-1;
+$input-border: 1px solid $border-color;
+$day-success-background: $success;
+$day-error-background: $failure;
+
+/*    Status Container   */
+$card-background: $group-list-background;
+$card-border: 1px solid rgba(76, 76, 76, 0.12);
+$card-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.08);
+$service-title: $main-1;
+$service-title-size: 1.8rem;
+$service-stats-color: $text-1;
+$service-description-color: $text-1;
+$service-stats-size: 2.3rem;
+$service-card-height: 480px;
+$text-success: $success;
+$text-danger: $failure;
+
+/*    Button Colors      */
+$success-color: $success;
+$danger-color: $failure;
+$primary-color: $main-1;
+
+/*   Footer Settings   */
+$footer-text-color: $text-1;
+$nav-tab-color: $success;
+$footer-display: block;
+
+/*   Global Settings */
+$global-border-radius: 0.2rem;
+
+/*   Mobile Settings   */
+$sm-background-color: $background-1;
+$sm-border-radius: 0rem;
+
+/*   Mobile Service Container   */
+$sm-service-background: #ffffff;
+$sm-padding: 0;
+$sm-service-stats-size: 1.5rem;
+
+/* Code Editor */
+$code-editor-background: $background-color;
+$code-editor-lineNum-background: $navbar-background;
+$code-editor-lineNum: $title-color;
+
+/* Dashboard */
+$dashboard-title: $text-1;
+$dashboard-button: $background-3;
+$dashboard-button-hover: $background-2;
+$dashboard-button-border: none;
+$dashboard-values: $text-1;

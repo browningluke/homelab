@@ -23,11 +23,18 @@
 # m h  dom mon dow   command
 
 # Sync Anime files to GDrive
-#0 0,12 * * * /usr/bin/rclone copy /home/luke/android_sync/Anime/ crypt:anime/ -P && /usr/bin/curl https://hc-ping.com/e760d558-228b-4b62-a7dc-a4062c6615ec &>> ~/backup.log
+#0 0,12 * * * /usr/bin/rclone copy /home/luke/android_sync/Anime/ crypt:anime/ -P && /usr/bin/curl https://hc-ping.com/<<HEALTHCHECKURL>> &>> ~/backup.log
 
-0 0,12 * * * /usr/bin/rclone copy /mnt/virt/gdrive/androidsync gdrive-root-crypt:androidsync --bwlimit "08:00,1.25M 18:00,0.625M 23:00,2.5M" --copy-links --retries 5 --retries-sleep 30s
+
+# Sync files to GDrive
+0  0,12 * * * /usr/bin/rclone copy /mnt/virt/gdrive/crypt gdrive-root-crypt: --bwlimit "08:00,1.25M 18:00,0.625M 23:00,2.5M" --copy-links --retries 5 --retries-sleep 30s
 
 30 0,12 * * * /usr/bin/rclone copy /mnt/virt/gdrive/backups gdrive-root:/root/backups --bwlimit "08:00,1.25M 18:00,0.625M 23:00,2.5M" --copy-links --retries 5 --retries-sleep 30s
+
+
+# Sync files between folders
+15 0,12 * * * /usr/bin/rsync -a /home/luke/bulk-downloader-for-reddit/downloads/ /mnt/virt/gdrive/crypt/reddit-saved
+
 
 # Pause non-private torrents
 0 * * * * /usr/bin/python3 /home/luke/pause_untagged_torrents.py
@@ -38,5 +45,7 @@
 # Download all saved Reddit posts (u/TheBritishAccent)
 0 1 * * * /usr/bin/docker-compose -f /home/luke/bulk-downloader-for-reddit/docker-compose.yml run --rm -p 0.0.0.0:8070:8080 -p 0.0.0.0:7634:7634 bdfr --saved --quit
 
-# Download all videos saved in "download" playlist on Youtube
-5 1 * * * /usr/local/bin/youtube-dl -i --add-metadata --write-thumbnail --merge-output-format mkv -o "/mnt/virt/Youtube/Videos/Playlist - Download/%(title)s-%(id)s.%(ext)s" PLkJLXbko9zTntIt87v2s2qyx0x3RY3KgQ
+# Download all videos saved in playlists on Youtube
+###5 1 * * * /usr/local/bin/youtube-dl -i --add-metadata --write-thumbnail --merge-output-format mkv -o "/mnt/virt/Youtube/Videos/Playlist - Download/%(title)s-%(id)s.%(ext)s" PLkJLXbko9zTntIt87v2s2qyx0x3RY3KgQ
+5  1 * * * /usr/local/bin/youtube-dl -i -o "/mnt/virt/Youtube/Videos/Playlist - Download/%(title)s-%(id)s.%(ext)s" <<DOWNLOADPLAYLIST>>
+15 1 * * * /usr/local/bin/youtube-dl -i -o "/mnt/virt/Youtube/Music/%(title)s-%(id)s.%(ext)s" <<MUSICPLAYLIST>>

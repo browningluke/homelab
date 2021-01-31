@@ -1,0 +1,31 @@
+{
+    "accounts": [
+        {
+            "email": "",
+            "password": "",
+            "totp": ""
+        },
+    ],
+    "onlyWeekly": false,
+    "runOnStartup": true,
+    "cronSchedule": "0 12 * * *",
+    "runOnce": false,
+    "logLevel": "info",
+    "baseUrl": "https://epic.thebritishaccent.net",
+    "email": {
+        "smtpHost": "smtp.gmail.com",
+        "smtpPort": 587,
+        "emailSenderAddress": "",
+        "emailSenderName": "Epic Games Captchas",
+        "emailRecipientAddress": "",
+        "secure": false,
+        "auth": {
+            "user": "",
+            "pass": "",
+        },
+    },
+    "telegram": {
+        "botToken": "",
+        "channelID": ""
+    }
+}

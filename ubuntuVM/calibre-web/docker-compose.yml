@@ -1,0 +1,17 @@
+---
+version: "2.1"
+services:
+  calibre-web:
+    image: ghcr.io/linuxserver/calibre-web
+    container_name: calibre-web
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Nassau
+      - DOCKER_MODS=linuxserver/calibre-web:calibre
+    volumes:
+      - ./config:/config
+      - /mnt/virt/gdrive/crypt/Books:/books
+    ports:
+      - 8083:8083
+    restart: unless-stopped

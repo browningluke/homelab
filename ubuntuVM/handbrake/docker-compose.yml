@@ -1,0 +1,11 @@
+version: '3'
+services:
+  handbrake:
+    image: jlesage/handbrake
+    ports:
+      - "5800:5800"
+    volumes:
+      - "./config:/config:rw"
+      - "./home:/storage:ro"
+      - "./watch:/watch:rw"
+      - "./output:/output:rw"

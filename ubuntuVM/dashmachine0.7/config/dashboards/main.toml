@@ -1,0 +1,86 @@
+['Time']
+shared_card = 'Time'
+
+['nav']
+shared_card = 'nav'
+##card.css = 'position: absolute; left: 0px; top: 0px;'
+
+['Full Card']
+icon.height = '55px'
+icon.image = 'receipt_long'
+title = 'General'
+description = 'Most frequently visited/important websites can be found here.'
+list.items = [
+    {icon = 'keyboard_arrow_right', name = 'List item', onpress = {href = 'apps', target = 'dashboard'}},
+    {icon = 'keyboard_arrow_right', name = 'List item', onpress = {href = 'apps', target = 'dashboard'}},
+    {icon = 'keyboard_arrow_right', name = 'List item', onpress = {href = 'apps', target = 'dashboard'}},
+    {icon = 'keyboard_arrow_right', name = 'List item', onpress = {href = 'apps', target = 'dashboard'}},
+    {icon = 'keyboard_arrow_right', name = 'List item', onpress = {href = 'apps', target = 'dashboard'}},
+    {icon = 'keyboard_arrow_right', name = 'List item', onpress = {href = 'apps', target = 'dashboard'}},
+]
+#data_sources.sources = ['hello_world']
+#content.markdown = 'full-card-example.md'
+#content.html = 'full-card-example.html'
+content.alignment = 'left'
+actionbar.actions = [
+    {icon = {type = 'material-icon', src= 'language', classes = 'text-primary'}, onpress = 'https://google.com'},
+    {icon = {type = 'material-icon', src= 'brightness_4', classes = 'text-secondary'}, onpress = 'https://google.com'},
+    {icon = {type = 'material-icon', src= 'directions', classes = 'text-success'}, onpress = 'https://google.com'},
+    {icon = {type = 'material-icon', src= 'wb_sunny', classes = 'text-danger'}, onpress = 'https://google.com'},
+]
+
+
+['Youtube']
+icon.image = {type = 'image', src = '/static/assets/images/youtube.png', height = '128px'}
+#title = 'Youtube'
+#description = 'This is the description block of the card.'
+alignment = "center"
+onpress = {href = 'https://youtube.com', target = 'this_tab'}
+
+['Gmail']
+icon.image = {type = 'image', src = '/static/assets/images/gmail.png', height = '128px'}
+#title = 'Gmail'
+#description = 'This is the description block of the card.'
+onpress = {href = 'https://mail.google.com/mail/u/0/#inbox', target = 'this_tab'}
+
+['Nerdcubed.co.uk']
+icon.image = {type = 'image', src = '/static/assets/images/nerdcubed.png', height = '128px'}
+#title = 'Nerdcubed'
+#description = 'This is the description block of the card.'
+onpress = {href = 'https://www.nerdcubed.co.uk/', target = 'this_tab'}
+
+['Netflix']
+icon.image = {type = 'image', src = '/static/assets/images/netflix.png', height = '128px'}
+#title = 'Netflix'
+#description = 'This is the description block of the card.'
+onpress = {href = 'https://netflix.com', target = 'this_tab'}
+
+['MyAnimeList']
+icon.image = {type = 'image', src = '/static/assets/images/mal.png', height = '128px'}
+#title = 'MyAnimeList'
+#description = 'This is the description block of the card.'
+onpress = {href = 'https://myanimelist.net/', target = 'this_tab'}
+
+['Reddit']
+icon.image = {type = 'image', src = '/static/assets/images/reddit.png', height = '128px'}
+#title = 'Reddit'
+#description = 'This is the description block of the card.'
+onpress = {href = 'https://reddit.com', target = 'this_tab'}
+
+['Google Photos']
+icon.image = {type = 'image', src = '/static/assets/images/googlephotos.png', height = '128px'}
+#title = 'Google Photos'
+#description = 'This is the description block of the card.'
+onpress = {href = 'https://photos.google.com', target = 'this_tab'}
+
+['Nyaa']
+icon.image = {type = 'image', src = '/static/assets/images/nyaa.png', height = '128px'}
+#title = 'Nyaa'
+#description = 'This is the description block of the card.'
+onpress = {href = 'https://nyaa.si', target = 'this_tab'}
+
+['BakaBT']
+icon.image = {type = 'image', src = '/static/assets/images/bakabt.png', height = '128px'}
+#title = 'Nyaa'
+#description = 'This is the description block of the card.'
+onpress = {href = 'https://bakabt.me', target = 'this_tab'}

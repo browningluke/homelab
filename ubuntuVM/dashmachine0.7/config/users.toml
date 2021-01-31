@@ -1,0 +1,4 @@
+[luke]
+password = "test"
+role = "admin"
+command_bar_visible = true

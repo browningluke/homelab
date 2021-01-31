@@ -1,0 +1,9 @@
+version: '3.3'
+services:
+    server:
+        container_name: bitwarden
+        volumes:
+            - './bw-data/:/data/'
+        ports:
+            - '8040:80'
+        image: 'bitwardenrs/server:latest'

@@ -1,0 +1,70 @@
+['Time']
+shared_card = 'Time'
+
+['nav']
+shared_card = 'nav'
+
+['Full Card']
+icon = 'receipt_long'
+title = 'Media'
+description = "Yar Har! Let's have some fun on the vast ocean."
+list.items = [
+    {icon = 'keyboard_arrow_right', name = 'List item', onpress = {href = 'apps', target = 'dashboard'}},
+    {icon = 'keyboard_arrow_right', name = 'List item', onpress = {href = 'apps', target = 'dashboard'}},
+    {icon = 'keyboard_arrow_right', name = 'List item', onpress = {href = 'apps', target = 'dashboard'}},
+    {icon = 'keyboard_arrow_right', name = 'List item', onpress = {href = 'apps', target = 'dashboard'}},
+    {icon = 'keyboard_arrow_right', name = 'List item', onpress = {href = 'apps', target = 'dashboard'}},
+    {icon = 'keyboard_arrow_right', name = 'List item', onpress = {href = 'apps', target = 'dashboard'}},
+]
+#data_sources.sources = ['hello_world']
+#content.markdown = 'full-card-example.md'
+#content.html = 'full-card-example.html'
+content.alignment = 'left'
+actionbar.actions = [
+    {icon = {type = 'material-icon', src= 'language', classes = 'text-primary'}, onpress = 'https://google.com'},
+    {icon = {type = 'material-icon', src= 'brightness_4', classes = 'text-secondary'}, onpress = 'https://google.com'},
+    {icon = {type = 'material-icon', src= 'directions', classes = 'text-success'}, onpress = 'https://google.com'},
+    {icon = {type = 'material-icon', src= 'wb_sunny', classes = 'text-danger'}, onpress = 'https://google.com'},
+]
+
+['Plex']
+icon.image = {type = 'image', src = '/static/assets/images/plex.png', height = '128px'}
+#title = 'Nyaa'
+#description = 'This is the description block of the card.'
+onpress = {href = 'https://plex.tba.lan', target = 'this_tab'}
+
+['Tautulli']
+icon.image = {type = 'image', src = '/static/assets/images/tautulli.png', height = '128px'}
+#title = 'Nyaa'
+#description = 'This is the description block of the card.'
+onpress = {href = 'https://tautulli.tba.lan', target = 'this_tab'}
+
+['Sonarr']
+icon.image = {type = 'image', src = '/static/assets/images/sonarr.png', height = '128px'}
+#title = 'Nyaa'
+#description = 'This is the description block of the card.'
+onpress = {href = 'https://sonarr.tba.lan', target = 'this_tab'}
+
+['Radarr']
+icon.image = {type = 'image', src = '/static/assets/images/radarr_test.png', height = '128px'}
+#title = 'Nyaa'
+#description = 'This is the description block of the card.'
+onpress = {href = 'https://radarr.tba.lan', target = 'this_tab'}
+
+['Jackett']
+icon.image = {type = 'image', src = '/static/assets/images/jackett.png', height = '128px'}
+#title = 'Nyaa'
+#description = 'This is the description block of the card.'
+onpress = {href = 'https://jackett.tba.lan', target = 'this_tab'}
+
+['qBittorrent']
+icon.image = {type = 'image', src = '/static/assets/images/qbit.png', height = '128px'}
+#title = 'Nyaa'
+#description = 'This is the description block of the card.'
+onpress = {href = 'https://qbt.tba.lan/', target = 'this_tab'}
+
+['Handbrake']
+icon.image = {type = 'image', src = '/static/assets/images/Handbrake.png', height = '128px'}
+#title = 'Nyaa'
+#description = 'This is the description block of the card.'
+onpress = {href = 'https://handbrake.tba.lan', target = 'this_tab'}

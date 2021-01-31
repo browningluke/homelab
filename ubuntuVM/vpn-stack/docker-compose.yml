@@ -1,0 +1,81 @@
+version: '3.4'
+
+services:
+  vpn:
+    image: dperson/openvpn-client
+    # cap_add, security_opt, and volume required for the image to function
+    cap_add:
+      - net_admin
+    environment:
+      TZ: 'EST5EDT'
+    networks:
+      - default
+    # if using '-d' or 'DNS' you can't enable the `read_only: true` option
+    read_only: true
+    tmpfs:
+      - /run
+      - /tmp
+    restart: unless-stopped
+    security_opt:
+      - label:disable
+    stdin_open: true
+    tty: true
+    volumes:
+      - /dev/net:/dev/net:z
+    # Put .ovpn configuration file in the /vpn directory (in "volumes:" above or
+    # launch using the command line arguments, IE pick one:
+      - ./vpn/config:/vpn
+    command: [-f, '']
+
+  soulseek:
+    restart: unless-stopped
+    depends_on:
+      - vpn
+    volumes:
+        - './soulseek/appdata:/data/.SoulseekQt'
+        - './soulseek/downloads:/data/Soulseek Downloads'
+        - '/mnt/virt/Music:/Music'
+        - './soulseek/logs:/data/Soulseek Chat Logs'
+    environment:
+        - pgid=1000
+        - puid=1000
+        - resize=scale
+        - resolution=1280x720
+    network_mode: "service:vpn"
+    # ports:
+    # - '6080:6080'
+    stdin_open: true
+    tty: true
+    image: realies/soulseek
+
+  web:
+    image: dperson/nginx
+    depends_on:
+      - soulseek
+    environment:
+      TZ: 'EST5EDT'
+    links:
+      - vpn:soulseek
+    networks:
+      - default
+    ports:
+      - "8090:8090"
+#      - "443:443"
+    read_only: true
+    tmpfs:
+      - /run
+      - /tmp
+      - /var/cache/nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+    #command: [-w, "http://soulseek:6080/;/soulseek/"]
+
+    # service1 shares the network stack of vpn. The service can by reached using
+    # the name of the service as a hostname.
+
+networks:
+  default:

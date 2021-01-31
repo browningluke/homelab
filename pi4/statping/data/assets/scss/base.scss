@@ -1,0 +1,539 @@
+@import 'variables';
+@import 'mixin';
+
+.index-chart {
+  height: $service-card-height;
+  /*Animation*/
+  -webkit-transition: height 0.3s ease;
+  -moz-transition: height 0.3s ease;
+  -o-transition: height 0.3s ease;
+  -ms-transition: height 0.3s ease;
+  transition: height 0.3s ease;
+}
+
+.dates{
+  color: $text-1!important; 
+}
+.dates strong{
+  color: $main-1!important; 
+}
+
+.service-tm-menu {
+  width: 210px;
+  height: 355px;
+  bottom: 15px;
+  left: -25px;
+  position: absolute;
+  background-color: #ffffffd4;
+  border: 0;
+  border-radius: 0;
+  box-shadow: 0px 3px 6px 1px rgba(0,0,0,0.08);
+}
+
+.btn-xs {
+  font-size: 8pt;
+  padding: 2px 6px;
+}
+
+.dim {
+  background-color: #f3f3f3;
+}
+
+.slider-info {
+  font-size: 9pt;
+  font-weight: bold;
+}
+
+@-o-keyframes fadeIt {
+  0%   { background-color: #f5f5f5; }
+  50%  { background-color: #f2f2f2; }
+  100% { background-color: #f5f5f5; }
+}
+@keyframes fadeIt {
+  0%   { background-color: #f5f5f5; }
+  50%  { background-color: #f2f2f2; }
+  100% { background-color: #f5f5f5; }
+}
+
+.backgroundAnimated {
+  background-image:none !important;
+  -o-animation: fadeIt 1s ease-in-out;
+  animation: fadeIt 1s ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.loader {
+  background-color: #f5f5f5;
+  min-height: 35px;
+  border-radius: 3px;
+}
+
+.sub-service-card {
+  border: 1px solid #dcdcdc87;
+  padding-top: 7px;
+  padding-bottom: 10px;
+  min-height: 70px;
+}
+
+.expanded-service {
+  height: 550px;
+
+  .stats_area {
+    display: none;
+  }
+
+}
+
+.service-chart {
+  bottom: -16px;
+  position: relative;
+}
+
+.chartmarker {
+  padding: 0px;
+  width: 200px;
+  text-align: left;
+}
+
+.chartmarker SPAN {
+  font-size: 4pt;
+  display: block;
+  color: #b1b1b1;
+}
+
+.apexcharts-tooltip {
+  box-shadow: none;
+}
+
+.dropup .dropdown-menu {
+    border-radius: 8px 8px 8px 0;
+    background-color: #efefef;
+}
+
+.divided {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+}
+
+.divider {
+  flex-grow: 1;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  margin: 0 20px 0 20px;
+}
+
+.daily-failures {
+  position: absolute;
+  padding-top: 3px;
+  top: 10px;
+  right: 100px;
+  width: 300px;
+  height: 25px;
+}
+
+.service_day {
+  height: 20px;
+  margin-right: 2px;
+  border-radius: 2px;
+  max-width: 30px;
+  cursor: pointer;
+}
+
+.service_day SPAN {
+  font-size: 6pt;
+  color: white;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  margin-top: 4px;
+}
+
+  .service_scale {
+    width: 60pt;
+    float: left !important;
+    margin-right: 12pt;
+  }
+
+  .slide-fade-enter-active {
+    transition: all .5s ease;
+  }
+  .slide-fade-leave-active {
+    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+    /* .slide-fade-leave-active below version 2.1.8 */ {
+    transform: translateX(10px);
+    opacity: 0;
+  }
+
+  .header-title {
+    color: $title-color;
+  }
+
+  .header-desc {
+    color: $description-color;
+  }
+
+  .btn {
+    border-radius: $global-border-radius;
+  }
+
+  .online_list .badge {
+    font-size: 8pt;
+    padding: 5px 7px;
+  }
+
+  .btn-sm {
+    line-height: 1.3;
+    font-size: 0.75rem;
+  }
+
+  .view_service_btn {
+    position: absolute;
+    bottom: -40px;
+    right: 40px;
+  }
+
+  .service_lower_info {
+    position: absolute;
+    bottom: -40px;
+    left: 40px;
+    color: #d1ffca;
+    font-size: 0.85rem;
+  }
+
+  .lg_number {
+    font-size: $service-stats-size;
+    font-weight: bold;
+    display: block;
+    color: $service-stats-color;
+  }
+
+  .stats_area {
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  .lower_canvas {
+    height: 3.4rem;
+    width: 100%;
+    padding: 15px 10px;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+  }
+
+  .lower_canvas SPAN {
+    font-size: 1rem;
+    color: $service-description-color
+  }
+
+  .font-0 {
+    font-size: 0.35rem;
+  }
+
+  .font-1 {
+    font-size: 0.8rem;
+  }
+
+  .font-2 {
+    font-size: 0.8rem;
+  }
+
+.font-3 {
+  font-size: 1.1rem;
+}
+
+.font-4 {
+  font-size: 1.7rem;
+}
+
+.font-5 {
+  font-size: 2.3rem;
+}
+
+.font-6 {
+  font-size: 2.8rem;
+}
+
+.font-7 {
+  font-size: 3rem;
+}
+
+.font-8 {
+  font-size: 3.5rem;
+}
+
+.subtitle {
+  color: $subtitle-color;
+}
+
+  .badge {
+    color: white;
+    border-radius: $global-border-radius;
+  }
+
+  .btn-group {
+    height: 25px;
+
+    & A {
+      padding: 0.1rem .75rem;
+      font-size: 0.8rem;
+    }
+  }
+
+  .no-decoration {
+    color: black;
+    text-decoration: none;
+  }
+
+  .no-decoration:HOVER {
+    color: #2b2b2b;
+    text-decoration: none;
+  }
+
+  .btn-white {
+    background-color: white;
+    border: 1px solid #d8d8d8;
+    color: #767676;
+  }
+
+  .btn-white:hover {
+    background-color: #fcfcfc;
+    border: 1px solid #bdbdbd;
+    color: #767676;
+  }
+
+  .braker {
+    border-top: 1px solid rgba(0, 0, 0, 0.10);
+    width: 98%;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .text-dim {
+    color: #a0a0a0;
+  }
+
+  .json-field {
+    font-size: 10pt;
+  }
+
+  .cm-bracketer {
+    color: #a011c9;
+    font-weight: bold;
+  }
+
+.cm-var-highlight {
+  color: #0fa50f;
+  font-weight: bold;
+}
+
+.cm-var-sub-highlight {
+  color: #b40727;
+  font-weight: bold;
+}
+
+  .chart-container {
+    position: relative;
+    height: 240px;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .service-chart-container {
+    position: relative;
+    height: 400px;
+    width: 100%;
+  }
+
+  .service-chart-heatmap {
+    position: relative;
+    height: 180px;
+    width: 100%;
+  }
+
+  .btn-primary {
+    background-color: $primary-color;
+    border-color: darken($primary-color, 17%);
+    color: white;
+    @include dynamic-color($success-color);
+  }
+
+  .btn-success {
+    background-color: $success-color;
+    @include dynamic-color($success-color);
+  }
+
+  .btn-danger {
+    background-color: $danger-color;
+    @include dynamic-color($danger-color);
+  }
+
+  .bg-success, .badge-success {
+    background-color: $success-color !important;
+  }
+
+  .bg-danger, .badge-danger {
+    background-color: $danger-color !important;
+  }
+
+  .bg-success .dyn-dark {
+    background-color: darken($success-color, 10%) !important;
+  }
+
+  .bg-danger .dyn-dark {
+    background-color: darken($danger-color, 10%) !important;
+  }
+
+  @keyframes fadeInOut {
+    0%   { opacity:1; }
+    50%  { opacity:0.3; }
+    100% { opacity:1; }
+  }
+  @-o-keyframes fadeInOut {
+    0%   { opacity:1; }
+    50%  { opacity:0.3; }
+    100% { opacity:1; }
+  }
+  @-moz-keyframes fadeInOut {
+    0%   { opacity:1; }
+    50%  { opacity:0.3; }
+    100% { opacity:1; }
+  }
+  @-webkit-keyframes fadeInOut {
+    0%   { opacity:1; }
+    50%  { opacity:0.3; }
+    100% { opacity:1; }
+  }
+  .animate-fader {
+    -webkit-animation: fadeInOut 1s infinite;
+    -moz-animation: fadeInOut 1s infinite;
+    -o-animation: fadeInOut 1s infinite;
+    animation: fadeInOut 1s infinite;
+  }
+
+  .sortable_drag {
+    background-color: #0000000f;
+  }
+
+  .switch_btn {
+    float: right;
+    margin: -1px 0px 0px 0px;
+    display: block;
+  }
+
+  #start_container {
+    position: absolute;
+    z-index: 99999;
+    margin-top: 20px;
+  }
+
+  #end_container {
+    position: absolute;
+    z-index: 99999;
+    margin-top: 20px;
+    right: 0;
+  }
+
+  .pointer {
+    cursor: pointer;
+  }
+
+  .jumbotron {
+    background-color: rgba(0,0,0,0);
+  }
+
+  .toggle-service {
+    font-size: 18pt;
+    float: left;
+    margin: 2px 3px 0 0;
+    cursor: pointer;
+  }
+
+  /* Enter and leave animations can use different */
+  /* durations and timing functions.              */
+  .slide-fade-enter-active {
+    transition: all .3s ease;
+  }
+  .slide-fade-leave-active {
+    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+    /* .slide-fade-leave-active below version 2.1.8 */ {
+    transform: translateX(10px);
+    opacity: 0;
+  }
+
+  .card {
+    background-color: $group-list-background !important;
+    color: $text-color !important;
+}
+.text-black-50 {
+  color: $text-color !important;
+}
+.flatpickr-calendar {
+  background-color: #282828 !important;
+}
+
+.flatpickr-month, .flatpickr-weekday, .flatpickr-day{
+  color: $input-color !important;
+}
+
+.flatpickr-next-month svg, .flatpickr-prev-month svg {
+  fill: $input-color;
+}
+
+.prevMonthDay{
+   color: #2F3133 !important
+}
+
+.flatpickr-day.selected{
+  background-color: $text-color;
+}
+
+.flatpickr-time .flatpickr-am-pm:focus, .flatpickr-time .flatpickr-am-pm:hover, .flatpickr-time input:focus, .flatpickr-time input:hover{
+  background-color: $input-background !important;
+}
+
+.numInput, .flatpickr-am-pm{
+  color: $input-color !important;
+}
+
+.apexcharts-svg rect{
+  fill: $background-2;
+}
+
+.CodeMirror-scroll {
+  background-color: $code-editor-background;
+}
+
+.CodeMirror-linenumbers {
+  background-color: $code-editor-lineNum-background;
+  color: $code-editor-lineNum;
+}
+
+.card-header a{
+  color: $dashboard-title;
+}
+
+.btn-white{
+  background-color: $dashboard-button;
+  border: $dashboard-button-border
+}
+
+.btn-white:hover{
+  background-color: $dashboard-button-hover;
+  border: $dashboard-button-border
+}
+
+.apexcharts-canvas svg text{
+  fill: $dashboard-values;
+}
+
+.text-danger{
+  color: $text-danger !important;
+}
+
+.text-success{
+  color: $text-success !important;
+}

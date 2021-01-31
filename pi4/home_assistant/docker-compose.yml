@@ -1,0 +1,11 @@
+version: '3.3'
+services:
+    raspberrypi3-homeassistant:
+        container_name: home-assistant
+        environment:
+            - TZ=America/New_York
+        volumes:
+            - './config:/config'
+        image: 'homeassistant/raspberrypi3-homeassistant:stable'
+        ports:
+            - 8123:8123
