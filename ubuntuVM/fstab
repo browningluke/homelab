@@ -1,0 +1,22 @@
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+# / was on /dev/sda5 during installation
+UUID=a0299d38-f133-4714-96f9-fc4b4f3a448a /               ext4    errors=remount-ro 0       1
+# /boot/efi was on /dev/sda1 during installation
+UUID=087B-473B  /boot/efi       vfat    umask=0077      0       1
+/swapfile                                 none            swap    sw              0       0
+
+
+# Plex mount pointa
+UUID="18eca4df-2034-4bee-bf3c-7089220c7209" /mnt/BIGBOI-6TB    auto nosuid,nodev,nofail,x-gvfs-show 0 0
+UUID="96da0cb0-2bff-4bb1-a2d6-43a7b705d8cc" /mnt/plex1         auto nosuid,nodev,nofail,x-gvfs-show 0 0
+UUID="ec8d88f0-d13b-42a3-9882-5a314a0d6284" /mnt/plex2         auto nosuid,nodev,nofail,x-gvfs-show 0 0
+UUID="E062B9D462B9AFA0"                     /mnt/usbdrive      auto nosuid,nodev,nofail,x-gvfs-show 0 0
+
+# MergerFS pool
+/mnt/plex1:/mnt/plex2:/mnt/usbdrive:/mnt/BIGBOI-6TB/  /mnt/virt      fuse.mergerfs  use_ino,cache.files=partial,dropcacheonclose=true,allow_other,category.create=mfs   0       0
