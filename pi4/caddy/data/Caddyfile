@@ -59,7 +59,7 @@ qbt.{$DOMAIN} {
           token_issuer {$TOKEN_ISSUER}
         }
       }
-      auth_url https://auth.{$DOMAIN}
+      auth_url https://auth.{$DOMAIN}?redirect_url=https://qbt.{$DOMAIN}
     }
   reverse_proxy {$UBUNTUVM_IP}:8080
   }
@@ -70,7 +70,9 @@ qbt.{$DOMAIN} {
 
 soul.{$DOMAIN} {
   route /* {
-    jwt
+    jwt {
+      auth_url https://auth.{$DOMAIN}?redirect_url=https://soul.{$DOMAIN}
+    }
     rewrite * /soulseek{uri}
     reverse_proxy {$UBUNTUVM_IP}:8090
   }
@@ -81,7 +83,9 @@ soul.{$DOMAIN} {
 
 handbrake.{$DOMAIN} {
   route /* {
-    jwt
+    jwt {
+      auth_url https://auth.{$DOMAIN}?redirect_url=https://handbrake.{$DOMAIN}
+    }
     reverse_proxy {$UBUNTUVM_IP}:5800
   }
 
@@ -91,7 +95,9 @@ handbrake.{$DOMAIN} {
 
 tautulli.{$DOMAIN} {
   route /* {
-    jwt
+    jwt {
+      auth_url https://auth.{$DOMAIN}?redirect_url=https://tautulli.{$DOMAIN}
+    }
     reverse_proxy {$UBUNTUVM_IP}:8282
   }
 
@@ -101,7 +107,9 @@ tautulli.{$DOMAIN} {
 
 stash.{$DOMAIN} {
   route /* {
-    jwt
+    jwt {
+      auth_url https://auth.{$DOMAIN}?redirect_url=https://stash.{$DOMAIN}
+    }
     reverse_proxy {$UBUNTUVM_IP}:9999
   }
 
@@ -111,7 +119,9 @@ stash.{$DOMAIN} {
 
 memes.{$DOMAIN} {
   route /* {
-    jwt
+    jwt {
+      auth_url https://auth.{$DOMAIN}?redirect_url=https://memes.{$DOMAIN}
+    }
     reverse_proxy {$UBUNTUVM_IP}:9991
   }
 
@@ -121,7 +131,9 @@ memes.{$DOMAIN} {
 
 calibre.{$DOMAIN} {
   route /* {
-    jwt
+    jwt {
+      auth_url https://auth.{$DOMAIN}?redirect_url=https://calibre.{$DOMAIN}
+    }
     reverse_proxy {$UBUNTUVM_IP}:8083
   }
 
@@ -131,9 +143,11 @@ calibre.{$DOMAIN} {
 
 # Code
 
-jupyter.py.{$DOMAIN} {
+jupyterpy.{$DOMAIN} {
   route /* {
-    jwt
+    jwt {
+      auth_url https://auth.{$DOMAIN}?redirect_url=https://jupyterpy.{$DOMAIN}
+    }
     reverse_proxy {$UBUNTUVM_IP}:10001
   }
 
@@ -141,9 +155,11 @@ jupyter.py.{$DOMAIN} {
   tls {$CERTPATH} {$KEYPATH}
 }
 
-jupyter.dsci.{$DOMAIN} {
+jupyterdsci.{$DOMAIN} {
   route /* {
-    jwt
+    jwt {
+      auth_url https://auth.{$DOMAIN}?redirect_url=https://jupyterdsci.{$DOMAIN}
+    }
     reverse_proxy {$UBUNTUVM_IP}:10001
   }
     
@@ -153,7 +169,9 @@ jupyter.dsci.{$DOMAIN} {
 
 code.{$DOMAIN} {
   route /* {
-    jwt
+    jwt {
+      auth_url https://auth.{$DOMAIN}?redirect_url=https://code.{$DOMAIN}
+    }
     reverse_proxy {$UBUNTUVM_IP}:8443
   }
     
@@ -165,7 +183,9 @@ code.{$DOMAIN} {
 
 pyload.{$DOMAIN} {
   route /* {
-    jwt
+    jwt {
+      auth_url https://auth.{$DOMAIN}?redirect_url=https://pyload.{$DOMAIN}
+    }
     reverse_proxy {$UBUNTUVM_IP}:4000
   }
 
@@ -175,7 +195,9 @@ pyload.{$DOMAIN} {
 
 dash.{$DOMAIN} {
   route /* {
-    jwt
+    jwt {
+      auth_url https://auth.{$DOMAIN}?redirect_url=https://dash.{$DOMAIN}
+    }
     reverse_proxy {$UBUNTUVM_IP}:5000
   }
 
@@ -185,7 +207,9 @@ dash.{$DOMAIN} {
 
 huginn.{$DOMAIN} {
   route /* {
-    jwt
+    jwt {
+      auth_url https://auth.{$DOMAIN}?redirect_url=https://huginn.{$DOMAIN}
+    }
     reverse_proxy {$UBUNTUVM_IP}:3303
   }
   
