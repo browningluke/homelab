@@ -1,34 +1,5 @@
----
-version: "3.3"
+version: '3.3'
 services:
-  jackett:
-    image: linuxserver/jackett
-    container_name: jackett
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=America/Nassau
-    volumes:
-      - ./config/jackett:/config
-      - ./data/jackett/downloads:/downloads
-    ports:
-      - 9117:9117
-    restart: unless-stopped
-
-  ombi:
-    image: linuxserver/ombi
-    container_name: ombi
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=America/Nassau
-      - BASE_URL=/ombi #optional
-    volumes:
-      - ./config/ombi:/config
-    ports:
-      - 3579:3579
-    restart: unless-stopped
-
   pms-docker:
     container_name: plex
     ports:
@@ -43,67 +14,13 @@ services:
         - '32414:32414/udp'
     environment:
         - TZ=America/New_York
-        - PLEX_CLAIM=
-        - 'ADVERTISE_IP=http://10.8.0.232:32400/'
+        - PLEX_CLAIM
+        - 'ADVERTISE_IP=https://plex.thebritishaccent.net/,https://plex.tba.lan/,http://10.8.0.160:32400/'
     volumes:
-        - './config/plex:/config'
-        - './data/plex/transcode:/transcode'
+        - './config-plex/config:/config'
+        - './config-plex/transcode:/transcode'
         - '/mnt/virt:/data'     
     image: plexinc/pms-docker
-
-  qbittorrentvpn:
-    container_name: qbittorrent
-    privileged: true
-    volumes:
-        - './config/qbittorrent:/config'
-        - '/mnt/virt:/data'
-    environment:
-        - VPN_ENABLED=yes
-        - VPN_USERNAME={VPNUSERNAME}
-        - VPN_PASSWORD={VPNPASSWORD}
-        - LAN_NETWORK=10.8.0.0/24
-        - 'NAME_SERVERS=10.8.0.184,8.8.8.8'
-        - PUID=1000
-        - PGID=1000
-    ports:
-        - '8080:8080'
-        - '8999:8999'
-        - '8999:8999/udp'
-    healthcheck:
-        test: curl --fail -s https://api.myip.com || exit 1
-        interval: 5m
-        timeout: 30s
-        retries: 3
-    image: markusmcnugen/qbittorrentvpn
-
-  radarr:
-    image: linuxserver/radarr
-    container_name: radarr
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=America/Nassau
-    volumes:
-      - ./config/radarr:/config
-      - /mnt/usbdrive/:/data
-      - /mnt/usbdrive/Movies:/movies
-    ports:
-      - 7878:7878
-    restart: unless-stopped
-
-  sonarr:
-    image: linuxserver/sonarr
-    container_name: sonarr
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=America/Nassau
-    volumes:
-      - ./config/sonarr:/config
-      - /mnt/virt/:/data
-    ports:
-      - 8989:8989
-    restart: unless-stopped
 
   tautulli:
     image: linuxserver/tautulli
@@ -113,8 +30,22 @@ services:
       - PGID=1000
       - TZ=America/Nassau
     volumes:
-      - ./config/tautulli:/config
-      - '/etc/plex/config/Library/Application Support/Plex Media Server/Logs:/logs'
+      - ./config-tautulli:/config
+      - './logs-tautulli:/logs'
     ports:
       - 8282:8181
+    restart: unless-stopped
+
+  ombi:
+    image: linuxserver/ombi
+    container_name: ombi
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Nassau
+    #  - BASE_URL=/ombi #optional
+    volumes:
+      - ./config-ombi:/config
+    ports:
+      - 3579:3579
     restart: unless-stopped
