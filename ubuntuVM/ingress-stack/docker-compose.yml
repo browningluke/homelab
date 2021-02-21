@@ -1,0 +1,67 @@
+version: '3.3'
+services:
+  qbittorrentvpn:
+    container_name: qbittorrent
+    privileged: true
+    volumes:
+        - './config-qbittorrent:/config'
+        - '/mnt/virt:/data'
+    environment:
+        - VPN_ENABLED=yes
+        - VPN_USERNAME
+        - VPN_PASSWORD
+        - LAN_NETWORK=10.8.0.0/24
+        - 'NAME_SERVERS=10.8.0.1,8.8.8.8'
+        - PUID=1000
+        - PGID=1000
+    ports:
+        - '8080:8080'
+        #- '8999:8999'
+        #- '8999:8999/udp'
+    healthcheck:
+        test: curl --fail -s https://api.myip.com || exit 1
+        interval: 5m
+        timeout: 30s
+        retries: 3
+    image: markusmcnugen/qbittorrentvpn
+  
+  sonarr:
+    image: linuxserver/sonarr
+    container_name: sonarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Nassau
+    volumes:
+      - ./config-sonarr:/config
+      - /mnt/virt/:/data
+    ports:
+      - 8989:8989
+    restart: unless-stopped
+  
+  radarr:
+    image: linuxserver/radarr
+    container_name: radarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Nassau
+    volumes:
+      - ./config-radarr:/config
+      - /mnt/virt/:/data
+    ports:
+      - 7878:7878
+    restart: unless-stopped
+  
+  jackett:
+    image: linuxserver/jackett
+    container_name: jackett
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Nassau
+    volumes:
+      - ./config-jackett:/config
+    ports:
+      - 9117:9117
+    restart: unless-stopped
