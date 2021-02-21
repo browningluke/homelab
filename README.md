@@ -19,6 +19,12 @@
 	- [Pihole](#pihole)
 	- [Google Apps Scripts](#google-apps-scripts)
 
+
+## Wiki
+
+### Wiki is a WIP, will replace this README once finished.
+### It can current can be found [here](https://github.com/TheBritishAccent/homelab/wiki)
+
 ## Server Configurations
 
 **ISP**
