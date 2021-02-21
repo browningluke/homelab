@@ -49,3 +49,5 @@
 ###5 1 * * * /usr/local/bin/youtube-dl -i --add-metadata --write-thumbnail --merge-output-format mkv -o "/mnt/virt/Youtube/Videos/Playlist - Download/%(title)s-%(id)s.%(ext)s" PLkJLXbko9zTntIt87v2s2qyx0x3RY3KgQ
 5  1 * * * /usr/local/bin/youtube-dl -i -o "/mnt/virt/Youtube/Videos/Playlist - Download/%(title)s-%(id)s.%(ext)s" <<DOWNLOADPLAYLIST>>
 15 1 * * * /usr/local/bin/youtube-dl -i -o "/mnt/virt/Youtube/Music/%(title)s-%(id)s.%(ext)s" <<MUSICPLAYLIST>>
+
+@reboot tmux new -d 'rclone rcd --rc-web-gui --rc-user=admin --rc-pass=pass --rc-serve --rc-addr :5572'
