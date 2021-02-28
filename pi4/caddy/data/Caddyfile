@@ -31,6 +31,19 @@ auth.{$DOMAIN} {
       ui {
         links {
           "qbittorrent" https://qbt.{$DOMAIN}
+          "soulseek" https://soul.{$DOMAIN}
+          "handbrake" https://handbrake.{$DOMAIN}
+          "tautulli" https://tautulli.{$DOMAIN}
+          "memes" https://memes.{$DOMAIN}
+          "calibre" https://calibre.{$DOMAIN}
+          "podgrab" https://podgrab.{$DOMAIN}
+          "jupyterpy" https://jupyterpy.{$DOMAIN}
+          "jupyterdsci" https://jupyterdsci.{$DOMAIN}
+          "code" https://code.{$DOMAIN}
+          "pyload" https://pyload.{$DOMAIN}
+          "dash" https://dash.{$DOMAIN}
+          "huginn" https://huginn.{$DOMAIN}
+          "rclone" https://rclone.{$DOMAIN}
         }
       }
       cookie_domain {$DOMAIN}
@@ -117,6 +130,18 @@ stash.{$DOMAIN} {
   tls {$CERTPATH} {$KEYPATH}
 }
 
+stash-manga.{$DOMAIN} {
+  route /* {
+    jwt {
+      auth_url https://auth.{$DOMAIN}?redirect_url=https://stash-manga.{$DOMAIN}
+    }
+    reverse_proxy {$UBUNTUVM_IP}:9099
+  }
+
+  tls {$TLSEMAIL}
+  tls {$CERTPATH} {$KEYPATH}
+}
+
 memes.{$DOMAIN} {
   route /* {
     jwt {
@@ -135,6 +160,18 @@ calibre.{$DOMAIN} {
       auth_url https://auth.{$DOMAIN}?redirect_url=https://calibre.{$DOMAIN}
     }
     reverse_proxy {$UBUNTUVM_IP}:8083
+  }
+
+  tls {$TLSEMAIL}
+  tls {$CERTPATH} {$KEYPATH}
+}
+
+podgrab.{$DOMAIN} {
+  route /* {
+    jwt {
+      auth_url https://auth.{$DOMAIN}?redirect_url=https://podgrab.{$DOMAIN}
+    }
+    reverse_proxy {$UBUNTUVM_IP}:8081
   }
 
   tls {$TLSEMAIL}
@@ -217,6 +254,17 @@ huginn.{$DOMAIN} {
   tls {$CERTPATH} {$KEYPATH}
 }
 
+rclone.{$DOMAIN} {
+  route /* {
+    jwt {
+      auth_url https://auth.{$DOMAIN}?redirect_url=https://rclone.{$DOMAIN}
+    }
+    reverse_proxy {$UBUNTUVM_IP}:5572
+  }
+  
+  tls {$TLSEMAIL}
+  tls {$CERTPATH} {$KEYPATH}
+}
 
 ## ***********
 ## Not Secured 
@@ -329,6 +377,12 @@ chat.{$DOMAIN} {
 
 bitwarden.{$DOMAIN} {
   reverse_proxy {$PI4_IP}:8040
+  tls {$TLSEMAIL}
+  tls {$CERTPATH} {$KEYPATH}
+}
+
+gitea.{$DOMAIN} {
+  reverse_proxy {$PI4_IP}:3000
   tls {$TLSEMAIL}
   tls {$CERTPATH} {$KEYPATH}
 }
