@@ -24,8 +24,14 @@ services:
 #       - HTTPS_PROXY=http://proxy.domain.com
     depends_on:
       - mongo
-    ports:
-      - 3300:3000
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.rocketchat.rule=Host(`chat.${REVERSE_HOST}`)"
+      - "traefik.http.routers.rocketchat.entrypoints=web-secure"
+      - "traefik.http.routers.rocketchat.tls=true"
+    networks: 
+      - reverse
+      - internal
 
   mongo:
     image: mongo:4.0
@@ -34,6 +40,8 @@ services:
      - ./data/db:/data/db
      #- ./data/dump:/dump
     command: mongod --smallfiles --oplogSize 128 --replSet rs0 --storageEngine=mmapv1
+    networks: 
+      - internal
 
   # this container's job is just run the command to initialize the replica set.
   # it will run the command and remove himself (it will not stay running)
@@ -52,3 +60,13 @@ services:
         done; (exit $$s)"
     depends_on:
       - mongo
+    networks: 
+      - internal
+
+
+networks:
+  reverse:
+    external:
+      name: reverse
+  internal:
+    external: false

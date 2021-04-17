@@ -1,0 +1,3 @@
+[[tls.certificates]]
+   certFile = "/letsencrypt/live/thebritishaccent.net/*.thebritishaccent.net/fullchain.cer"
+   keyFile = "/letsencrypt/live/thebritishaccent.net/*.thebritishaccent.net/*.thebritishaccent.net.key"

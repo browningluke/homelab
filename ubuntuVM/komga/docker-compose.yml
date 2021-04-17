@@ -11,7 +11,17 @@ services:
       - ./config:/config
       - /mnt/virt/manga:/books
       - /etc/timezone:/etc/timezone
-    ports:
-      - 8181:8080
     user: "1000:1000"
     restart: unless-stopped
+    labels: 
+      - "traefik.enable=true"
+      - "traefik.http.routers.komga.rule=Host(`komga.${REVERSE_HOST}`)"
+      - "traefik.http.routers.komga.entrypoints=web-secure"
+      - "traefik.http.routers.komga.tls=true"
+    networks: 
+      - reverse
+
+networks:
+  reverse:
+    external:
+      name: reverse

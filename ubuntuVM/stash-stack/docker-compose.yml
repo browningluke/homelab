@@ -4,8 +4,6 @@ services:
     image: stashapp/stash:latest
     container_name: stash-sfw
     restart: unless-stopped
-    ports:
-      - "9991:9999"
     logging:
       driver: "json-file"
       options:
@@ -33,12 +31,18 @@ services:
       - ./data-stash-sfw/cache:/cache
       ## Where to store generated content (screenshots,previews,transcodes,sprites)
       - ./data-stash-sfw/generated:/generated
+    labels: 
+      - "traefik.enable=true"
+      - "traefik.http.routers.stash-sfw.rule=Host(`memes.${REVERSE_HOST}`)"
+      - "traefik.http.routers.stash-sfw.entrypoints=web-secure"
+      - "traefik.http.routers.stash-sfw.tls=true"
+    networks: 
+      - reverse
+
 
   stash:
     image: stashapp/stash:latest
     container_name: stash
-    ports:
-      - "9999:9999"
     logging:
       driver: "json-file"
       options:
@@ -66,14 +70,31 @@ services:
 
       # Community Scrapers
       - /mnt/virt/gdrive/crypt/stash/stash/config/scrapers:/data/scrapers
+    labels: 
+      - "traefik.enable=true"
+      - "traefik.http.routers.stash.rule=Host(`stash.${REVERSE_HOST}`)"
+      - "traefik.http.routers.stash.entrypoints=web-secure"
+      - "traefik.http.routers.stash.tls=true"
+    networks: 
+      - reverse
 
   mango:
     image: hkalexling/mango
     container_name: mango
     expose:
       - 9000
-    ports:
-      - 9099:9000
     volumes:
       - /mnt/virt/gdrive/crypt/stash/mango/mango:/root/mango
       - ./data-mango/config/mango:/root/.config/mango
+    labels: 
+      - "traefik.enable=true"
+      - "traefik.http.routers.stash-manga.rule=Host(`stash-manga.${REVERSE_HOST}`)"
+      - "traefik.http.routers.stash-manga.entrypoints=web-secure"
+      - "traefik.http.routers.stash-manga.tls=true"
+    networks: 
+      - reverse
+
+networks:
+  reverse:
+    external:
+      name: reverse

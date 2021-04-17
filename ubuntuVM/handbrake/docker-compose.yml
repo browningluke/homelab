@@ -9,3 +9,15 @@ services:
       - "./home:/storage:ro"
       - "./watch:/watch:rw"
       - "./output:/output:rw"
+    labels: 
+      - "traefik.enable=true"
+      - "traefik.http.routers.handbrake.rule=Host(`handbrake.${REVERSE_HOST}`)"
+      - "traefik.http.routers.handbrake.entrypoints=web-secure"
+      - "traefik.http.routers.handbrake.tls=true"
+    networks: 
+      - reverse
+
+networks:
+  reverse:
+    external:
+      name: reverse

@@ -11,19 +11,22 @@ services:
         - VPN_USERNAME
         - VPN_PASSWORD
         - LAN_NETWORK=10.8.0.0/24
-        - 'NAME_SERVERS=10.8.0.1,8.8.8.8'
+        - 'NAME_SERVERS=8.8.8.8'
         - PUID=1000
         - PGID=1000
-    ports:
-        - '8080:8080'
-        #- '8999:8999'
-        #- '8999:8999/udp'
     healthcheck:
         test: curl --fail -s https://api.myip.com || exit 1
-        interval: 5m
-        timeout: 30s
+        interval: 30s
+        timeout: 10s
         retries: 3
     image: markusmcnugen/qbittorrentvpn
+    labels: 
+      - "traefik.enable=true"
+      - "traefik.http.routers.qbittorrent.rule=Host(`qbt.${REVERSE_HOST}`)"
+      - "traefik.http.routers.qbittorrent.entrypoints=web-secure"
+      - "traefik.http.routers.qbittorrent.tls=true"
+    networks: 
+      - reverse
   
   sonarr:
     image: linuxserver/sonarr
@@ -35,9 +38,14 @@ services:
     volumes:
       - ./config-sonarr:/config
       - /mnt/virt/:/data
-    ports:
-      - 8989:8989
     restart: unless-stopped
+    labels: 
+      - "traefik.enable=true"
+      - "traefik.http.routers.sonarr.rule=Host(`sonarr.${REVERSE_HOST}`)"
+      - "traefik.http.routers.sonarr.entrypoints=web-secure"
+      - "traefik.http.routers.sonarr.tls=true"
+    networks: 
+      - reverse
   
   radarr:
     image: linuxserver/radarr
@@ -49,9 +57,14 @@ services:
     volumes:
       - ./config-radarr:/config
       - /mnt/virt/:/data
-    ports:
-      - 7878:7878
     restart: unless-stopped
+    labels: 
+      - "traefik.enable=true"
+      - "traefik.http.routers.radarr.rule=Host(`radarr.${REVERSE_HOST}`)"
+      - "traefik.http.routers.radarr.entrypoints=web-secure"
+      - "traefik.http.routers.radarr.tls=true"
+    networks: 
+      - reverse
   
   jackett:
     image: linuxserver/jackett
@@ -62,6 +75,16 @@ services:
       - TZ=America/Nassau
     volumes:
       - ./config-jackett:/config
-    ports:
-      - 9117:9117
     restart: unless-stopped
+    labels: 
+      - "traefik.enable=true"
+      - "traefik.http.routers.jackett.rule=Host(`jackett.${REVERSE_HOST}`)"
+      - "traefik.http.routers.jackett.entrypoints=web-secure"
+      - "traefik.http.routers.jackett.tls=true"
+    networks: 
+      - reverse
+
+networks:
+  reverse:
+    external:
+      name: reverse

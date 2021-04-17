@@ -2,16 +2,16 @@ version: '3.3'
 services:
   pms-docker:
     container_name: plex
-    ports:
-        - '32400:32400/tcp'
-        - '3005:3005/tcp'
-        - '8324:8324/tcp'
-        - '32469:32469/tcp'
-        - '1900:1900/udp'
-        - '32410:32410/udp'
-        - '32412:32412/udp'
-        - '32413:32413/udp'
-        - '32414:32414/udp'
+    #ports:
+    #    - '32400:32400/tcp'
+    #    - '3005:3005/tcp'
+    #    - '8324:8324/tcp'
+    #    - '32469:32469/tcp'
+    #    - '1900:1900/udp'
+    #    - '32410:32410/udp'
+    #    - '32412:32412/udp'
+    #    - '32413:32413/udp'
+    #    - '32414:32414/udp'
     environment:
         - TZ=America/New_York
         - PLEX_CLAIM
@@ -21,6 +21,14 @@ services:
         - './config-plex/transcode:/transcode'
         - '/mnt/virt:/data'     
     image: plexinc/pms-docker
+    labels: 
+      - "traefik.enable=true"
+      - "traefik.http.routers.plex.rule=Host(`plex.${REVERSE_HOST}`)"
+      - "traefik.http.routers.plex.entrypoints=web-secure"
+      - "traefik.http.routers.plex.tls=true"
+      - "traefik.http.services.plex.loadbalancer.server.port=32400"
+    networks: 
+      - reverse
 
   tautulli:
     image: linuxserver/tautulli
@@ -32,9 +40,14 @@ services:
     volumes:
       - ./config-tautulli:/config
       - './logs-tautulli:/logs'
-    ports:
-      - 8282:8181
     restart: unless-stopped
+    labels: 
+      - "traefik.enable=true"
+      - "traefik.http.routers.tautulli.rule=Host(`tautulli.${REVERSE_HOST}`)"
+      - "traefik.http.routers.tautulli.entrypoints=web-secure"
+      - "traefik.http.routers.tautulli.tls=true"
+    networks: 
+      - reverse
 
   ombi:
     image: linuxserver/ombi
@@ -46,6 +59,16 @@ services:
     #  - BASE_URL=/ombi #optional
     volumes:
       - ./config-ombi:/config
-    ports:
-      - 3579:3579
     restart: unless-stopped
+    labels: 
+      - "traefik.enable=true"
+      - "traefik.http.routers.ombi.rule=Host(`ombi.${REVERSE_HOST}`)"
+      - "traefik.http.routers.ombi.entrypoints=web-secure"
+      - "traefik.http.routers.ombi.tls=true"
+    networks: 
+      - reverse
+
+networks:
+  reverse:
+    external:
+      name: reverse

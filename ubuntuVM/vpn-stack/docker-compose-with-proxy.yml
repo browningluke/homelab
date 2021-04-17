@@ -8,6 +8,8 @@ services:
       - net_admin
     environment:
       TZ: 'EST5EDT'
+    networks:
+      - default
     # if using '-d' or 'DNS' you can't enable the `read_only: true` option
     read_only: true
     tmpfs:
@@ -24,14 +26,6 @@ services:
     # launch using the command line arguments, IE pick one:
       - ./vpn/config:/vpn
     command: [-f, '']
-    labels: 
-      - "traefik.enable=true"
-      - "traefik.http.routers.soulseek.rule=Host(`soul.${REVERSE_HOST}`)"
-      - "traefik.http.routers.soulseek.entrypoints=web-secure"
-      - "traefik.http.routers.soulseek.tls=true"
-      - "traefik.http.services.soulseek.loadbalancer.server.port=6080"
-    networks: 
-      - reverse
 
   soulseek:
     restart: unless-stopped
@@ -48,11 +42,40 @@ services:
         - resize=scale
         - resolution=1280x720
     network_mode: "service:vpn"
+    # ports:
+    # - '6080:6080'
     stdin_open: true
     tty: true
     image: realies/soulseek
 
+  web:
+    image: dperson/nginx
+    depends_on:
+      - soulseek
+    environment:
+      TZ: 'EST5EDT'
+    links:
+      - vpn:soulseek
+    networks:
+      - default
+    ports:
+      - "8090:8090"
+#      - "443:443"
+    read_only: true
+    tmpfs:
+      - /run
+      - /tmp
+      - /var/cache/nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+    #command: [-w, "http://soulseek:6080/;/soulseek/"]
+
+    # service1 shares the network stack of vpn. The service can by reached using
+    # the name of the service as a hostname.
+
 networks:
-  reverse:
-    external:
-      name: reverse
+  default:
