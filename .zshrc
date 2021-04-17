@@ -19,10 +19,31 @@ PROMPT='%n@%M%@ %B%3~%b %# '
 #PROMPT='%(?.%F{green}√.%F{red}?%?)%f %B%F{240}%~%f%b %# '
 ZSH_THEME=”random”
 
+export REVERSE_HOST="thebritishaccent.net"
+
+
 neofetch | lolcat
+
+
+# Aliases
 
 alias ls='ls --color=auto'
 alias cp='cp -g'
 alias mv='mv -g'
+alias docco='docker-compose'
+alias tar-create="tar -czvf"
+
+alias up='docker-compose up'
+alias down='docker-compose down'
+alias upb='docker-compose up --build'
+
+# Functions
+
+mkcdir ()
+{
+    mkdir -p -- "$1" &&
+      cd -P -- "$1"
+}
+
 
 eval $(thefuck --alias)
