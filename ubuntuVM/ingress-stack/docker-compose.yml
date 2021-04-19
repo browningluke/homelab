@@ -15,19 +15,54 @@ services:
         - PUID=1000
         - PGID=1000
     healthcheck:
-        test: curl --fail -s https://api.myip.com || exit 1
+        test: "[ $$(curl -s \"http://ip-api.com/line?fields=countryCode\") = \"CH\" ]"
         interval: 30s
         timeout: 10s
         retries: 3
     image: markusmcnugen/qbittorrentvpn
     labels: 
       - "traefik.enable=true"
+
       - "traefik.http.routers.qbittorrent.rule=Host(`qbt.${REVERSE_HOST}`)"
       - "traefik.http.routers.qbittorrent.entrypoints=web-secure"
       - "traefik.http.routers.qbittorrent.tls=true"
+      - "traefik.http.routers.qbittorrent.service=qbittorrent"
+      - "traefik.http.services.qbittorrent.loadbalancer.server.port=8080"
+
+      - "traefik.http.routers.soulseek.rule=Host(`soul.${REVERSE_HOST}`)"
+      - "traefik.http.routers.soulseek.entrypoints=web-secure"
+      - "traefik.http.routers.soulseek.tls=true"
+      - "traefik.http.routers.soulseek.service=soulseek"
+      - "traefik.http.services.soulseek.loadbalancer.server.port=6080"
     networks: 
       - reverse
   
+  soulseek:
+    container_name: soulseek
+    restart: unless-stopped
+    depends_on:
+      - qbittorrentvpn
+    volumes:
+        - './soulseek/appdata:/data/.SoulseekQt'
+        - './soulseek/downloads:/data/Soulseek Downloads'
+        - '/mnt/virt/Music:/Music'
+        - './soulseek/logs:/data/Soulseek Chat Logs'
+    environment:
+        - pgid=1000
+        - puid=1000
+        - resize=scale
+        - resolution=1280x720
+    network_mode: "service:qbittorrentvpn"
+    stdin_open: true
+    tty: true
+    image: realies/soulseek
+    # Curl is not installed in container by default
+    # healthcheck:
+    #   test: [ $(curl -s "http://ip-api.com/line?fields=countryCode") = "CH" ]
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 3
+
   sonarr:
     image: linuxserver/sonarr
     container_name: sonarr
