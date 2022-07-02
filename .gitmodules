@@ -1,6 +1,3 @@
-[submodule "docker"]
-	path = docker
-	url = https://github.com/browningluke/homelab-docker
-[submodule "cloud VMs/bastion"]
-	path = cloud VMs/bastion
-	url = git@github.com:browningluke/homelab-vm-bastion.git
+[submodule "cloud/oracle/bastion"]
+	path = cloud/oracle/bastion
+	url = https://github.com/browningluke-homelab/oracle-bastion.git
