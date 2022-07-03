@@ -1,2 +1,3 @@
 ---
 - import_playbook: crontab/cron.pb.yml
+- import_playbook: fstab/fstab.pb.yml

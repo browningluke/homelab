@@ -1,0 +1,36 @@
+---
+- name: terra - fstab
+  hosts: terra
+  tasks:
+  - name: Mount media share
+    ansible.posix.mount:
+      src: //omv.browningluke.lan/media
+      path: /mnt/media
+      opts: credentials=/root/.smbcreds,uid=1000,gid=1000,iocharset=utf8
+      state: present
+      fstype: cifs
+    tags:
+    - fstab
+    become: yes
+
+  - name: Mount crypt-media share
+    ansible.posix.mount:
+      src: //omv.browningluke.lan/crypt-media
+      path: /mnt/crypt-media
+      opts: credentials=/root/.smbcreds,uid=1000,gid=1000,iocharset=utf8
+      state: present
+      fstype: cifs
+    tags:
+    - fstab
+    become: yes
+
+  - name: Mount duplicity share
+    ansible.posix.mount:
+      src: //omv.browningluke.lan/duplicity
+      path: /mnt/duplicity
+      opts: credentials=/root/.smbcreds,uid=1000,gid=1000,iocharset=utf8
+      state: present
+      fstype: cifs
+    tags:
+    - fstab
+    become: yes
