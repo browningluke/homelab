@@ -1,0 +1,46 @@
+---
+- name: terra - crontab
+  hosts: terra
+  tasks:
+  # Sync to GDrive
+    - name: "CRON: Sync crypt to GDrive"
+      cron:
+        name: "Sync crypt to GDrive"
+        minute: "0"
+        hour: "0,12"
+        job: "/usr/bin/rclone copy /mnt/virt/gdrive/crypt gdrive-root-crypt: --bwlimit \"08:00,1.25M 18:00,0.625M 23:00,2.5M\" --copy-links --retries 5 --retries-sleep 30s"
+        disabled: "yes"
+      tags:
+      - cronjobs
+    
+    - name: "CRON: Sync backups to GDrive"
+      cron:
+        name: "Sync backups to GDrive"
+        minute: "30"
+        hour: "0,12"
+        job: "/usr/bin/rclone copy /mnt/virt/gdrive/backups gdrive-root:/root/backups --bwlimit \"08:00,1.25M 18:00,0.625M 23:00,2.5M\" --copy-links --retries 5 --retries-sleep 30s"
+        disabled: "yes"
+      tags:
+      - cronjobs
+
+  # Sync files between folders
+    - name: "CRON: Sync reddit downloads to crypt"
+      cron:
+        name: "Sync reddit downloads to crypt"
+        minute: "15"
+        hour: "0,12"
+        job: "/usr/bin/rsync -a /home/luke/bulk-downloader-for-reddit/downloads/ /mnt/virt/gdrive/crypt/reddit-saved"
+        disabled: "yes"
+      tags:
+      - cronjobs
+
+  # Download reddit saved posts
+    - name: "CRON: Download all saved Reddit posts (u/TBA)"
+      cron:
+        name: "Download all saved Reddit posts (u/TBA)"
+        minute: "0"
+        hour: "1"
+        job: "/usr/bin/docker-compose -f /home/luke/bulk-downloader-for-reddit/docker-compose.yml run --rm -p 0.0.0.0:8070:8080 -p 0.0.0.0:7634:7634 bdfr --saved --quit"
+        disabled: "no"
+      tags:
+      - cronjobs

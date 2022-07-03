@@ -1,0 +1,8 @@
+#!/bin/bash
+#source .env
+ANSIBLEROOT="$(git rev-parse --show-toplevel)/ansible"
+
+export ANSIBLE_NOCOWS=1
+export ANSIBLE_CONFIG="$ANSIBLEROOT/ansible.cfg"
+
+ansible-playbook --check -K terra.pb.yaml 
