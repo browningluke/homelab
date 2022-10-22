@@ -1,0 +1,29 @@
+---
+- name: Deprecated Cronjobs
+  hosts: 10.8.0.160
+  tasks:
+    - name: "CRON: Sync Anime files to GDrive"
+      cron:
+        name: "Sync Anime files to GDrive"
+        minute: "0"
+        hour: "0,12"
+        job: "/usr/bin/rclone copy /home/luke/android_sync/Anime/ crypt:anime/ -P && /usr/bin/curl https://hc-ping.com/e760d558-228b-4b62-a7dc-a4062c6615ec &>> ~/backup.log"
+        disabled: "yes"
+        state: absent
+    
+    - name: "CRON: Pause non-private torrents"
+      cron:
+        name: "Pause non-private torrents"
+        minute: "0"
+        job: "/usr/bin/python3 /home/luke/pause_untagged_torrents.py"
+        disabled: "yes"
+        state: absent
+    
+    - name: "CRON: Restart qbittorrent docker container"
+      cron:
+        name: "Restart qbittorrent docker container"
+        minute: "0"
+        hour: "0,12"
+        job: "/usr/bin/docker restart qbittorrent"
+        disabled: "yes"
+        state: absent

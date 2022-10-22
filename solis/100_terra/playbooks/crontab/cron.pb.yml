@@ -2,27 +2,6 @@
 - name: terra - crontab
   hosts: terra
   tasks:
-  # Sync to GDrive
-    - name: "CRON: Sync crypt to GDrive"
-      cron:
-        name: "Sync crypt to GDrive"
-        minute: "0"
-        hour: "0,12"
-        job: "/usr/bin/rclone copy /mnt/virt/gdrive/crypt gdrive-root-crypt: --bwlimit \"08:00,1.25M 18:00,0.625M 23:00,2.5M\" --copy-links --retries 5 --retries-sleep 30s"
-        disabled: "yes"
-      tags:
-      - cronjobs
-    
-    - name: "CRON: Sync backups to GDrive"
-      cron:
-        name: "Sync backups to GDrive"
-        minute: "30"
-        hour: "0,12"
-        job: "/usr/bin/rclone copy /mnt/virt/gdrive/backups gdrive-root:/root/backups --bwlimit \"08:00,1.25M 18:00,0.625M 23:00,2.5M\" --copy-links --retries 5 --retries-sleep 30s"
-        disabled: "yes"
-      tags:
-      - cronjobs
-
   # Sync files between folders
     - name: "CRON: Sync reddit downloads to crypt"
       cron:
@@ -44,3 +23,16 @@
         disabled: "no"
       tags:
       - cronjobs
+
+    # Generate & backup tree
+    - name: "CRON: Generate & backup tree at 12am/pm"
+      cron:
+        name: "Generate & backup tree"
+        minute: "0"
+        hour: "0,12"
+        job: '/usr/bin/tree --dirsfirst -Fn --du -Juh -I "MumDrive" -I "MumMasters" -o "/mnt/virt/gdrive/crypt/backups/trees/virt/tree-$(date +%F-%H-%MT%z).json" -- /mnt/virt'
+        user: root
+        disabled: "yes"
+      tags:
+      - cronjobs
+      become: yes
