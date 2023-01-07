@@ -2,7 +2,6 @@
 - name: 501 - crontab
   hosts: compute-1
   tasks:
-  # Sync to GDrive
     - name: "CRON: Mangathr(v2): Check for updates"
       ansible.builtin.cron:
         name: "Mangathr(v2): Check for updates"
