@@ -1,0 +1,13 @@
+---
+- name: 501 - crontab
+  hosts: compute-1
+  tasks:
+  # Sync to GDrive
+    - name: "CRON: Mangathr(v2): Check for updates"
+      ansible.builtin.cron:
+        name: "Mangathr(v2): Check for updates"
+        minute: "0"
+        job: "/bin/sh -c 'cd {{ DOCKERHOME }}/compose/mangathr && /usr/bin/docker compose run --rm mangathrv2 && /usr/bin/docker compose run --rm mangathr'"
+        user: root
+        disabled: "no"
+      become: true
