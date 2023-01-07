@@ -1,0 +1,5 @@
+---
+- name: 502 - publish docker
+  hosts: compute-2
+  roles:
+    - compute
