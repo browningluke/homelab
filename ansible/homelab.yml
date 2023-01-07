@@ -11,3 +11,10 @@ all:
         compute-1:
           ansible_host: 501
           ansible_user: luke
+          apps:
+            - discord-gallerydl
+            - gocryptfs
+            - traefik
+            - komga
+            - stash
+          DOCKERHOME: /home/luke
