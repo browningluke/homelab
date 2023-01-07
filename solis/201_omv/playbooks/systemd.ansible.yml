@@ -1,0 +1,30 @@
+---
+- name: 201 - systemd services
+  hosts: omv
+  become: true
+  tasks:
+    - name: Sync all systemd services
+      ansible.builtin.copy:
+        src: "{{ item }}"
+        dest: "/etc/systemd/system/{{ item | basename }}"
+        owner: root
+        group: root
+        mode: 0644
+      register: output
+      notify:
+        - Reload systemctl
+        - Reload services
+      with_fileglob:
+        - "{{ playbook_dir }}/../systemd/*.service"
+
+  handlers:
+    - name: Reload systemctl
+      ansible.builtin.systemd:
+        daemon_reload: true
+
+    - name: Reload services
+      loop: "{{ output.results | selectattr('changed', 'equalto', true) | map(attribute='item') | list }}"
+      ansible.builtin.systemd:
+        name: "{{ item | basename }}"
+        state: restarted # Always bounce, since we only trigger on a config change
+        enabled: true
