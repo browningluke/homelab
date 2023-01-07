@@ -1,2 +1,0 @@
-terra ansible_host=terra ansible_user=luke
-omv ansible_host=omv ansible_user=luke
