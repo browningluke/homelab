@@ -1,6 +1,3 @@
 [submodule "cloud/oracle/bastion"]
 	path = cloud/oracle/bastion
 	url = https://github.com/browningluke-homelab/oracle-bastion.git
-[submodule "solis/100_terra/docker"]
-	path = solis/100_terra/docker
-	url = https://github.com/browningluke-homelab/terra-docker.git
