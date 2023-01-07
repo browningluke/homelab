@@ -18,3 +18,9 @@ all:
             - komga
             - stash
           DOCKERHOME: /home/luke
+        compute-2:
+          ansible_host: 502
+          ansible_user: luke
+          apps:
+            - plex
+          DOCKERHOME: /home/luke
