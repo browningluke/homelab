@@ -1,0 +1,10 @@
+version: '3.4'
+services:
+  dgdl:
+    image: "browningluke/dgdl:latest"
+    environment:
+      - DISCORD_TOKEN
+    volumes:
+      - ./config.json:/config.json
+      - ./mappings.json:/mappings.json
+      - /mnt/media/ingress/photos:/gallery-dl

@@ -1,0 +1,29 @@
+version: '3.4'
+services:
+  mangathrv2:
+    image: browningluke/mangathrv2
+    user: "1000:1000"
+    container_name: mangathrv2
+    command:
+      ## By default, check for new chapters of registered manga
+      - "update"
+    volumes:
+      ## Where to store downloaded content
+      - /mnt/media/ingress/manga:/data
+
+      ## Where to store the database & config file
+      - "${DOCKERHOME}/mangathrv2/config:/config"
+
+  mangathr:
+    image: ghcr.io/browningluke/mangathr:latest
+    user: "1000:1000"
+    container_name: mangathr
+    command:
+      ## By default, check for new chapters of registered manga
+      - "u"
+    volumes:
+      ## Where to store downloaded content
+      - /mnt/media/ingress/mangathr:/data
+
+      ## Where to store the database & config file
+      - "${DOCKERHOME}/mangathr:/config"

@@ -1,0 +1,64 @@
+version: "3.3"
+
+services:
+  traefik:
+    image: "traefik:v2.4"
+    container_name: "traefik"
+    restart: 'always'
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      - CF_DNS_API_TOKEN
+    command:
+      # Globals
+      - "--log.level=DEBUG"
+      - "--api=true"
+      # Docker
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      # Entrypoints
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.web-secure.address=:443"
+      - "--entrypoints.web.http.redirections.entryPoint.to=web-secure"
+      - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
+      - "--entrypoints.web.http.redirections.entrypoint.permanent=true"
+      # Providers
+      - "--providers.file.directory=/configuration/"
+      - "--providers.file.watch=true"
+      # ACME
+      - '--certificatesresolvers.cloudflare.acme.email=${EMAIL}'
+      - '--certificatesresolvers.cloudflare.acme.dnschallenge=true'
+      - '--certificatesresolvers.cloudflare.acme.dnschallenge.provider=cloudflare'
+      - '--certificatesResolvers.cloudflare.acme.dnsChallenge.resolvers=1.1.1.1:53,8.8.8.8:53'
+      - '--certificatesresolvers.cloudflare.acme.storage=/acme.json'
+      #- '--certificatesresolvers.cloudflare.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory'
+      - '--certificatesresolvers.cloudflare.acme.dnschallenge.delaybeforecheck=45'
+      - '--certificatesresolvers.cloudflare.acme.dnschallenge.disablepropagationcheck=true'
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - './acme.json:/acme.json'
+    # - "./config/:/configuration/"
+    labels:
+      - "traefik.enable=true"
+
+      # global wildcard certificates
+      - 'traefik.http.routers.wildcard-certs.tls.certresolver=cloudflare'
+      - 'traefik.http.routers.wildcard-certs.tls.domains[0].main=*.${DOMAIN}'
+      - 'traefik.http.routers.wildcard-certs.tls.domains[0].sans=${DOMAIN}'
+
+      # dashboard
+      - "traefik.http.routers.api.rule=Host(`traefik.${REVERSE_HOST}`)"
+      - "traefik.http.routers.api.tls=true"
+      - "traefik.http.routers.api.entrypoints=web-secure"
+      - 'traefik.http.routers.api.service=api@internal'
+
+    networks:
+      - reverse
+
+networks:
+  reverse:
+    name: reverse
+    external: true
