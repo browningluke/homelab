@@ -1,23 +1,5 @@
 ---
 - name: 501 - publish docker
   hosts: compute-1
-  tasks:
-    - name: Sync all docker stacks
-      loop: "{{ apps }}"
-      ansible.posix.synchronize:
-        src: ../docker/{{ item }}/
-        dest: "{{ DOCKERHOME }}/compose/{{ item }}/"
-        recursive: true
-      register: output
-      notify:
-        - Run stack deploy script
-
-  handlers:
-    - name: Run stack deploy script
-      loop: "{{ output.results | selectattr('changed', 'equalto', true) | map(attribute='item') | list }}"
-      ansible.builtin.command: 'sh deploy.sh'
-      args:
-        chdir: "{{ DOCKERHOME }}/compose/{{ item }}"
-      environment:
-        DOCKERHOME: "{{ DOCKERHOME }}"
-        REVERSE_HOST: browningluke.dev
+  roles:
+    - compute

@@ -1,0 +1,8 @@
+- name: Run stack deploy script
+  loop: "{{ output.results | selectattr('changed', 'equalto', true) | map(attribute='item') | list }}"
+  ansible.builtin.command: 'sh deploy.sh'
+  args:
+    chdir: "{{ DOCKERHOME }}/compose/{{ item }}"
+  environment:
+    DOCKERHOME: "{{ DOCKERHOME }}"
+    REVERSE_HOST: browningluke.dev

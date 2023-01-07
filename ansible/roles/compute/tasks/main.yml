@@ -1,0 +1,19 @@
+- name: Install the package "rsync"
+  ansible.builtin.apt:
+    name: rsync
+  become: true
+
+- name: Create compose directory
+  file:
+    path: "{{ DOCKERHOME }}/compose"
+    state: directory
+
+- name: Sync all docker stacks
+  loop: "{{ apps }}"
+  ansible.posix.synchronize:
+    src: ../docker/{{ item }}/
+    dest: "{{ DOCKERHOME }}/compose/{{ item }}/"
+    recursive: true
+  register: output
+  notify:
+    - Run stack deploy script
