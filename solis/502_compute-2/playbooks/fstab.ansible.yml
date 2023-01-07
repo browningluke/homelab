@@ -1,0 +1,20 @@
+---
+- name: 502 - fstab
+  hosts: compute-2
+  become: true
+  tasks:
+    - name: Mount media SMB share
+      ansible.posix.mount:
+        src: //omv.sol.browningluke.dev/media
+        path: /mnt/media
+        fstype: cifs
+        opts: ro,credentials=/root/.smbcreds,uid=1000,gid=1000,iocharset=utf8
+        state: present
+
+    - name: Mount gdrive-vdisk1 SMB share
+      ansible.posix.mount:
+        src: //omv.sol.browningluke.dev/gdrive-vdisk1
+        path: /mnt/gdrive-vdisk1
+        fstype: cifs
+        opts: ro,credentials=/root/.smbcreds,uid=1000,gid=1000,iocharset=utf8
+        state: present
