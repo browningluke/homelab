@@ -8,3 +8,6 @@ all:
         omv:
           ansible_host: omv
           ansible_user: luke
+        compute-1:
+          ansible_host: 501
+          ansible_user: luke
