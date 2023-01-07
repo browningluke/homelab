@@ -1,0 +1,29 @@
+version: '3.3'
+services:
+  pms-docker:
+    container_name: plex
+    ports:
+      - 32400:32400/tcp
+      - 32400:32400/udp
+      - 3005:3005/tcp
+      - 8324:8324/tcp
+      - 32469:32469/tcp
+      - 1900:1900/udp
+      - 32410:32410/udp
+      - 32412:32412/udp
+      - 32413:32413/udp
+      - 32414:32414/udp
+    environment:
+      - TZ=America/Vancouver
+      - PLEX_CLAIM
+      - VERSION=docker
+      - 'ADVERTISE_IP=http://10.8.5.2:32400/'
+    volumes:
+      - '${DOCKERHOME}/volumes/plex-stack/config-plex/config:/config'
+      - '${DOCKERHOME}/volumes/plex-stack/config-plex/transcode:/transcode'
+
+      - '/mnt/media/audio:/data-audio:ro'
+      - '/mnt/media/photo:/data-photo:ro'
+      - '/mnt/media/video:/data:ro'
+      - '/mnt/gdrive-vdisk1/media:/data-gvdisk1:ro'
+    image: plexinc/pms-docker
