@@ -14,6 +14,8 @@
     src: ../docker/{{ item }}/
     dest: "{{ DOCKERHOME }}/compose/{{ item }}/"
     recursive: true
+    rsync_opts:
+      - "--exclude='**README.md'"
   register: output
   notify:
     - Run stack deploy script
