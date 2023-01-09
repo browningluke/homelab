@@ -5,17 +5,28 @@
 
 - name: Create compose directory
   file:
-    path: "{{ DOCKERHOME }}/compose"
+    path: "{{ DOCKER_HOME }}/compose"
     state: directory
 
-- name: Sync all docker stacks
-  loop: "{{ apps }}"
-  ansible.posix.synchronize:
-    src: ../docker/{{ item }}/
-    dest: "{{ DOCKERHOME }}/compose/{{ item }}/"
-    recursive: true
-    rsync_opts:
-      - "--exclude='**README.md'"
+- name: Create stack directories
+  ansible.builtin.file:
+    path: "{{ DOCKER_HOME }}/compose/{{ item.path }}"
+    state: directory
+    mode: '{{ item.mode }}'
+  with_community.general.filetree: ../docker/
+  when: item.state == 'directory'
+
+- name: Template files (explicitly skip directories in order to use the 'src' attribute)
+  ansible.builtin.template:
+    src: '{{ item.src }}'
+    # All files are templated so that they are copied, even if they lack the .j2 ext.
+    # There is an expectation that no file without the .j2 ext will contain templating syntax. 
+    dest: "{{ DOCKER_HOME }}/compose/{{ item.path | replace('.j2', '') }}"
+    mode: '{{ item.mode }}'
+  with_community.general.filetree: ../docker/
+  when: 
+    - item.state == 'file'
+    - '"README.md" not in item.path'
   register: output
   notify:
     - Run stack deploy script

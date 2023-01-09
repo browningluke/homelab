@@ -1,6 +1,10 @@
 all:
   children:
     prod:
+      vars:
+        REVERSE_HOST: browningluke.dev
+        DOCKER_HOME: /home/luke
+
       hosts:
         terra:
           ansible_host: terra
@@ -11,16 +15,6 @@ all:
         compute-1:
           ansible_host: 501
           ansible_user: luke
-          apps:
-            - discord-gallerydl
-            - gocryptfs
-            - traefik
-            - komga
-            - stash
-          DOCKERHOME: /home/luke
         compute-2:
           ansible_host: 502
           ansible_user: luke
-          apps:
-            - plex
-          DOCKERHOME: /home/luke
