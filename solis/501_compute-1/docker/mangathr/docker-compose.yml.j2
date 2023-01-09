@@ -12,7 +12,7 @@ services:
       - /mnt/media/ingress/manga:/data
 
       ## Where to store the database & config file
-      - "${DOCKERHOME}/mangathrv2/config:/config"
+      - "{{ DOCKER_HOME }}/volumes/mangathrv2/config:/config"
 
   mangathr:
     image: ghcr.io/browningluke/mangathr:latest
@@ -26,4 +26,4 @@ services:
       - /mnt/media/ingress/mangathr:/data
 
       ## Where to store the database & config file
-      - "${DOCKERHOME}/mangathr:/config"
+      - "{{ DOCKER_HOME }}/volumes/mangathr:/config"

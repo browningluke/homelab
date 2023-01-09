@@ -18,14 +18,14 @@ services:
 
       - /opt/gocrypt/media:/data
 
-      - "${DOCKERHOME}/volumes/stash-stack/config:/root/.stash"
-      - "${DOCKERHOME}/volumes/stash-stack/metadata:/metadata"
-      - "${DOCKERHOME}/volumes/stash-stack/cache:/cache"
-      - "${DOCKERHOME}/volumes/stash-stack/generated:/generated"
-      - "${DOCKERHOME}/volumes/stash-stack/scrapers:/data/scrapers"
+      - "{{ DOCKER_HOME }}/volumes/stash-stack/config:/root/.stash"
+      - "{{ DOCKER_HOME }}/volumes/stash-stack/metadata:/metadata"
+      - "{{ DOCKER_HOME }}/volumes/stash-stack/cache:/cache"
+      - "{{ DOCKER_HOME }}/volumes/stash-stack/generated:/generated"
+      - "{{ DOCKER_HOME }}/volumes/stash-stack/scrapers:/data/scrapers"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.stash.rule=Host(`stash.${REVERSE_HOST}`)"
+      - "traefik.http.routers.stash.rule=Host(`stash.{{ REVERSE_HOST }}`)"
       - "traefik.http.routers.stash.entrypoints=web-secure"
       - "traefik.http.routers.stash.tls=true"
     networks:

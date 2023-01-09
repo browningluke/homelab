@@ -7,7 +7,7 @@ services:
       - PUID=1000
       - PGID=1000
     volumes:
-      - "${DOCKERHOME}/volumes/komga/config:/config"
+      - "{{ DOCKER_HOME }}/volumes/komga/config:/config"
       - /etc/timezone:/etc/timezone
 
       - /mnt/media/manga:/books:ro
@@ -16,7 +16,7 @@ services:
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.komga.rule=Host(`m.${REVERSE_HOST}`)"
+      - "traefik.http.routers.komga.rule=Host(`m.{{ REVERSE_HOST }}`)"
       - "traefik.http.routers.komga.entrypoints=web-secure"
       - "traefik.http.routers.komga.tls=true"
     networks:
