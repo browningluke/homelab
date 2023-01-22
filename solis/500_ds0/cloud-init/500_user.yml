@@ -1,0 +1,65 @@
+#cloud-config
+
+##
+# Users and Groups
+##
+
+users:
+    - name: luke
+      groups: [sudo]
+      lock_passwd: false
+      ssh_redirect_user: false
+      ssh_authorized_keys:
+          - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIACAT/GtHoVa6uTn6MHR/W6FwCnhjhONjWr+WE2Z6uiC ci-9000
+      uid: 1000
+      shell: '/bin/bash'
+
+manage_etc_hosts: true
+timezone: 'America/Vancouver'
+
+##
+# SSH
+##
+
+disable_root: true
+ssh_deletekeys: true
+ssh_genkeytypes: ed25519
+
+##
+# Hostname
+##
+
+preserve_hostname: false
+fqdn: sol.browningluke.dev
+hostname: ds0
+
+##
+# Passwords
+##
+
+chpasswd:
+    expire: true
+
+chpasswd:
+    list:
+      - luke:cloud1
+
+ssh_pwauth: false
+
+##
+# Packages
+##
+
+package_update: true
+package_upgrade: true
+package_reboot_if_required: true
+
+##
+# qemu-guest-agent
+##
+
+packages:
+  - qemu-guest-agent
+runcmd:
+  - systemctl enable qemu-guest-agent
+  - systemctl start qemu-guest-agent
