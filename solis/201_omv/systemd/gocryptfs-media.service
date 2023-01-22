@@ -1,0 +1,16 @@
+[Unit]
+Description=GoCryptFS Media
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=forking
+RestartSec=5
+ExecStart=/usr/bin/gocryptfs -allow_other -extpass "cat /root/gocryptpass" /srv/mergerfs/virt/gocrypt/media /srv/gocryptfs/media
+ExecStop=/bin/fusermount -uz /srv/gocryptfs/media
+Restart=on-failure
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target
