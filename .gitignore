@@ -43,4 +43,4 @@ terraform.rc
 # Ansible
 ###
 ansible/collections
-ansible/roles_galaxy
+**/roles/galaxy
