@@ -1,0 +1,6 @@
+---
+- name: Initialize Docker Swarm
+  community.docker.docker_swarm:
+    state: present
+  tags: swarm
+  register: swarm_root
