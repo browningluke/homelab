@@ -5,4 +5,3 @@
     advertise_addr: "{{ ansible_host }}"
     join_token: "{{ hostvars[groups[root_manager][0]]['swarm_root']['swarm_facts']['JoinTokens']['Worker'] }}"
     remote_addrs: ["{{ hostvars[groups[root_manager][0]]['inventory_hostname'] }}:2377"]
-  tags: swarm
