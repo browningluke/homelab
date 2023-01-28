@@ -39,6 +39,8 @@ override.tf.json
 .terraformrc
 terraform.rc
 
+*.yml.rendered
+
 ###
 # Ansible
 ###
