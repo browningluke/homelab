@@ -1,0 +1,14 @@
+---
+- name: Ensure group "docker" exists
+  ansible.builtin.group:
+    name: docker
+    state: present
+
+- name: Adding existing user to group docker. user = '{{ ansible_user }}'
+  ansible.builtin.user:
+    name: '{{ ansible_user }}'
+    groups: docker
+    append: true
+
+- name: Reset ssh connection
+  ansible.builtin.meta: reset_connection
