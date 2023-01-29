@@ -43,20 +43,25 @@ jobs:
       matrix:
         value: ${{fromJson(needs.setup.outputs.changed_dirs)}}
     steps:
-      - run: |
-          echo "${{ matrix.value }}"
+      - uses: actions/checkout@v3
+      - uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.TF_SSH_KEY }}
 
-      # - uses: hashicorp/setup-terraform@v2
+      - uses: hashicorp/setup-terraform@v2
 
-      # - name: Terraform fmt
-      #   id: fmt
-      #   run: terraform fmt -check
-      #   continue-on-error: true
+      - name: Terraform fmt
+        id: fmt
+        run: terraform fmt -check
+        continue-on-error: true
+        working-directory: ${{ matrix.value }}
 
-      # - name: Terraform Init
-      #   id: init
-      #   run: terraform init
+      - name: Terraform Init
+        id: init
+        run: terraform init
+        working-directory: ${{ matrix.value }}
 
-      # - name: Terraform Validate
-      #   id: validate
-      #   run: terraform validate -no-color
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+        working-directory: ${{ matrix.value }}

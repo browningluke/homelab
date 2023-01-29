@@ -6,7 +6,7 @@ module "pve_ci_swarm" {
   doppler_token = var.doppler_token
 
   /* Swarm */
-  swarm_name  = "d"
+  swarm_name  = "ds"
   domain_name = "sol.browningluke.dev"
 
   /* Network */
