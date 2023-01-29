@@ -1,5 +1,5 @@
 ---
-- name: Deploy swarm `sol-ds` on solis
+- name: deploy swarm `sol-ds` on solis
   import_playbook: "playbooks/sol/ds.yml"
   tags:
     - sol
