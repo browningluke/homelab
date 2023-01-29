@@ -1,0 +1,6 @@
+---
+node_labels:
+  traefik-public.certificates: "true"
+networks:
+  - name: traefik-public
+    driver: overlay
