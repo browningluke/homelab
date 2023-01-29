@@ -3,16 +3,15 @@ name: Ansible Lint
 on:
   push:
     branches:
-      - rewritev2/actions/ansible-lint
+      - rewritev2/**
+      - main
     paths:
-      - '.github/**'
       - 'ansible/**'
   pull_request:
     branches:
       - rewrite_v2
       - main
     paths:
-      - '.github/**'
       - 'ansible/**'
 
 jobs:
