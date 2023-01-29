@@ -1,0 +1,41 @@
+---
+- name: Install Docker packages
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  with_items:
+    - ntp
+    - python3
+    - python3-pip
+    - tcpdump
+    - wget
+    - openssl
+    - curl
+
+- name: Add Docker GPG apt Key
+  ansible.builtin.apt_key:
+    url: "https://download.docker.com/linux/{{ ansible_facts['distribution'] | lower }}/gpg"
+    state: present
+
+- name: Add Docker Repository
+  ansible.builtin.apt_repository:
+    repo: >
+      deb [arch={{ ansible_facts['architecture'] }}]
+      https://download.docker.com/linux/{{ ansible_facts['distribution'] | lower }}
+      {{ ansible_facts['distribution_release'] }} stable
+    state: present
+
+- name: Install Docker CE & Docker Compose
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  with_items:
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io
+
+- name: Install Docker pip packages
+  ansible.builtin.pip:
+    name: docker
