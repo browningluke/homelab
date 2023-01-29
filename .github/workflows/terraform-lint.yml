@@ -1,0 +1,67 @@
+name: Terraform Lint
+
+on:
+  push:
+    branches:
+      - rewritev2/**
+      - main
+    paths:
+      - 'terraform/**'
+  pull_request:
+    branches:
+      - rewrite_v2
+      - main
+    paths:
+      - 'terraform/**'
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      changed_dirs: ${{ steps.changed-dirs.outputs.all_changed_files }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+            fetch-depth: 0
+      
+      - name: Get changed js files excluding the docs folder
+        id: changed-dirs
+        uses: tj-actions/changed-files@v35
+        with:
+          dir_names: "true"
+          files: |
+            terraform/**
+          json: "true"
+          json_raw_format: "true"
+      
+      - run: echo "${{ steps.changed-dirs.outputs.all_changed_files }}"
+
+  lint:
+    needs: [ setup ]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        value: ${{fromJson(needs.setup.outputs.changed_dirs)}}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.TF_SSH_KEY }}
+
+      - uses: hashicorp/setup-terraform@v2
+
+      - name: Terraform fmt
+        id: fmt
+        run: terraform fmt -check
+        continue-on-error: true
+        working-directory: ${{ matrix.value }}
+
+      - name: Terraform Init
+        id: init
+        run: terraform init
+        working-directory: ${{ matrix.value }}
+
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+        working-directory: ${{ matrix.value }}
