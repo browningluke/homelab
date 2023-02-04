@@ -27,7 +27,7 @@ module "pve_ci_swarm" {
 
   /* Nodes */
   start_id      = 600
-  worker_offset = 10 // This acts as the max number of managers
+  worker_offset = 1 // This acts as the max number of managers
   node_template = "debian-11-template"
 
   managers = {
