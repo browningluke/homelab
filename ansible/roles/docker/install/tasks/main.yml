@@ -28,7 +28,7 @@
 
 - name: Update apt packages
   ansible.builtin.apt:
-    update_cache: yes
+    update_cache: true
 
 - name: Install Docker CE & Docker Compose
   ansible.builtin.apt:
