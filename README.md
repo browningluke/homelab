@@ -2,6 +2,13 @@
   <h1> Homelab - browningluke.dev </h1>
 </div>
 
+<div align="center">
+<a href="https://github.com/browningluke/homelab/actions/workflows/ansible-lint.yml"><img alt="Ansible Lint" src="https://github.com/browningluke/homelab/actions/workflows/ansible-lint.yml/badge.svg"></a>
+<a href="https://github.com/browningluke/homelab/actions/workflows/terraform-lint.yml"><img alt="Terraform Lint" src="https://github.com/browningluke/homelab/actions/workflows/terraform-lint.yml/badge.svg"></a>
+<img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/m/browningluke/homelab">
+</div>
+<br>
+
 This homelab started in 2019, with an old laptop and a Ubuntu ISO. Since then, it has grown and evolved through many different iterations of hardware and software, until it reached the point it is at now. The scope of this project has been continually expanding, starting from a single host, to multiple VMs on a single host, to many different VMs running across local and cloud hosts.
 
 Tinkering and expanding the homelab has become a hobby and a passion project. Many a sleepless hour have been spent improving and redoing. It has grown to be something to be proud of, but there are always more improvements and tweaks to be done.
