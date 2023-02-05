@@ -1,7 +1,9 @@
-variable "doppler_token" {}
+variable "doppler_token" {
+  type = string
+}
 
 module "pve_ci_swarm" {
-  source = "git@github.com:browningluke-tf/terraform-pve-swarm-module.git"
+  source = "git@github.com:browningluke-tf/terraform-pve-swarm-module.git?ref=v1.0.0"
 
   doppler_token = var.doppler_token
 
