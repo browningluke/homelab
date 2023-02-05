@@ -21,10 +21,14 @@
 - name: Add Docker Repository
   ansible.builtin.apt_repository:
     repo: >
-      deb [arch={{ ansible_facts['architecture'] }}]
+      deb [arch={{ 'amd64' if ansible_facts['architecture'] == 'x86_64' else ansible_facts['architecture'] }}]
       https://download.docker.com/linux/{{ ansible_facts['distribution'] | lower }}
       {{ ansible_facts['distribution_release'] }} stable
     state: present
+
+- name: Update apt packages
+  ansible.builtin.apt:
+    update_cache: yes
 
 - name: Install Docker CE & Docker Compose
   ansible.builtin.apt:
