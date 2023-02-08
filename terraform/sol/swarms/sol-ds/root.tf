@@ -3,7 +3,8 @@ variable "doppler_token" {
 }
 
 module "pve_ci_swarm" {
-  source = "git@github.com:browningluke-tf/terraform-pve-swarm-module.git?ref=v1.0.0"
+  source  = "app.terraform.io/browningluke/swarm/pve"
+  version = "~> 1.0"
 
   doppler_token = var.doppler_token
 
