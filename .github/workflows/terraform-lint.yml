@@ -49,6 +49,8 @@ jobs:
           ssh-private-key: ${{ secrets.TF_SSH_KEY }}
 
       - uses: hashicorp/setup-terraform@v2
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
       - name: Terraform fmt
         id: fmt
