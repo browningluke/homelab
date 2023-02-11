@@ -1,0 +1,74 @@
+# example repo definition
+# - name: my-repo
+#   description: "my desc"  # default: ""
+#   public: true            # defaults: false
+#   has:
+#     downloads: false      # default: true
+#     issues: false         # default: true
+#     projects: false       # default: true
+#     wiki: false           # default: true
+#   init: true              # default: true
+#   gitignore: Terraform    # default: null
+#   merge:
+#     auto: true            # default: false
+#     delete_branch: true   # default: false
+#     types:
+#       commit: true        # default: true
+#       squash: true        # default: true
+#       rebase: true        # default: true
+
+---
+- name: tf-template
+  description: ""
+  public: true
+  is_template: true
+  has:
+    downloads: false
+    issues: false
+    projects: false
+    wiki: false
+  init: true
+  gitignore: Terraform
+  merge:
+    auto: false
+    delete_branch: false
+    types:
+      commit: true
+      squash: true
+      rebase: true
+
+- name: terraform-github-repo
+  description: ""
+  public: true
+  template:
+    owner: browningluke-tf
+    repo: tf-template
+  has:
+    downloads: false
+    issues: false
+    projects: false
+    wiki: false
+  init: true
+  gitignore: Terraform
+
+- name: terraform-pve-cloud-init
+  description: ""
+  public: true
+  has:
+    downloads: false
+    issues: false
+    projects: false
+    wiki: false
+  init: true
+  gitignore: Terraform
+
+- name: terraform-pve-swarm
+  description: ""
+  public: true
+  has:
+    downloads: false
+    issues: false
+    projects: false
+    wiki: false
+  init: true
+  gitignore: Terraform
