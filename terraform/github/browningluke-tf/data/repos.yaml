@@ -53,6 +53,20 @@
   init: true
   gitignore: Terraform
 
+- name: terraform-tfe-organization
+  description: ""
+  public: true
+  template:
+    owner: browningluke-tf
+    repo: tf-template
+  has:
+    downloads: false
+    issues: false
+    projects: false
+    wiki: false
+  init: true
+  gitignore: Terraform
+
 - name: terraform-pve-cloud-init
   description: ""
   public: true
