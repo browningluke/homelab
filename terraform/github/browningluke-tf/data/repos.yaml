@@ -2,6 +2,7 @@
 # - name: my-repo
 #   description: "my desc"  # default: ""
 #   public: true            # defaults: false
+#   archived: true          # defaults: false
 #   has:
 #     downloads: false      # default: true
 #     issues: false         # default: true
@@ -28,8 +29,7 @@
     issues: false
     projects: false
     wiki: false
-  init: true
-  gitignore: Terraform
+  init: false
   merge:
     auto: false
     delete_branch: false
@@ -56,6 +56,7 @@
 - name: terraform-tfe-organization
   description: ""
   public: true
+  archived: true
   template:
     owner: browningluke-tf
     repo: tf-template
