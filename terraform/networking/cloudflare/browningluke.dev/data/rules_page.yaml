@@ -1,0 +1,16 @@
+# example page rule definition
+# - friendly_name: "example-name"
+#   target: "example.com/file/*"
+#   priority: 1
+#   enabled: false                     # default: true
+#   actions:
+#     cache_level: "cache_everything"  # default: null
+#     edge_cache_ttl: 1209600          # default: null
+
+---
+- friendly_name: "cdn-backblaze-blob-cache"
+  target: "cdn.browningluke.dev/file/browningluke-static/*"
+  priority: 1
+  actions:
+    cache_level: "cache_everything"
+    edge_cache_ttl: 1209600

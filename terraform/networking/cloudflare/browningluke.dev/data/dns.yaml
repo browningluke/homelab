@@ -1,0 +1,73 @@
+# example record definition
+# - friendly_name: "a-record"
+#   name: "my.record"
+#   type: "CNAME"
+#   proxied: true           # default: true
+#   ttl: 1800               # default: auto
+#   data:
+#     value: "example.com"
+#     priority: 72          # default: no priority
+#   comment: "my desc"      # default: ""
+
+---
+# ==== Hosts ====
+- friendly_name: "oci-bastion"
+  name: "bastion.vm"
+  type: "A"
+  proxied: false
+  data:
+    value: "192.18.156.59"
+    # This IP is not proxied, and is
+    # exposed anyway, so can live in VCS.
+  comment: "OCI hosted, public-facing VM"
+
+# ==== Services =====
+- friendly_name: "backblaze-cdn"
+  name: "cdn"
+  type: "CNAME"
+  proxied: true
+  data:
+    value: "f004.backblazeb2.com"
+  comment: "CDN-like static hosting with Backblaze"
+
+- friendly_name: "pihole-dot"
+  name: "dns"
+  type: "CNAME"
+  proxied: false
+  data:
+    value: "bastion.vm.browningluke.dev"
+  comment: "Ad blocking DoT resolver"
+
+# ==== Professional ====
+- friendly_name: "github-redirect"
+  name: "browningluke.dev"
+  type: "CNAME"
+  proxied: true
+  data:
+    value: "github.com"
+  comment: "Proxies through CF rules"
+
+- friendly_name: "resume-redirect"
+  name: "resume"
+  type: "CNAME"
+  proxied: true
+  data:
+    value: "browningluke.github.io"
+  comment: "Proxies through CF rules"
+
+- friendly_name: "linkedin-redirect"
+  name: "in"
+  type: "CNAME"
+  proxied: true
+  data:
+    value: "linkedin.com"
+  comment: "Proxies through CF rules"
+
+# ==== Supporting ====
+- friendly_name: "www-redirect"
+  name: "www"
+  type: "CNAME"
+  proxied: true
+  data:
+    value: "browningluke.dev"
+  comment: "Redirect to TLD"
