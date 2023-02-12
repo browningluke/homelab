@@ -1,0 +1,28 @@
+# example redirect list definition
+# - name: list-name
+#   description: "my desc"             # default: ""
+#   enabled: false                     # default: true
+#   items:
+#     - name: my item
+#       source: "https://example.com/"
+#       target: "https://example.net"
+#       status_code: 302               # default: 301
+#       parameters:
+#         subpath_matching: true       # default: false
+#         include_subdomains: true     # default: false
+#         preserve_path_suffix: true   # default: false
+#         preserve_query_string: true  # default: false
+
+---
+- name: profiles
+  items:
+    - name: Github
+      source: "https://browningluke.dev/"
+      target: "https://github.com/browningluke"
+      parameters:
+        subpath_matching: true
+    - name: LinkedIn
+      source: "https://in.browningluke.dev/"
+      target: "https://www.linkedin.com/in/browningluke"
+      parameters:
+        subpath_matching: true

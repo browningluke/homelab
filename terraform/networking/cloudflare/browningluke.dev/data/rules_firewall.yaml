@@ -1,0 +1,21 @@
+# example firewall rule definition
+# - friendly_name: "my-filter"
+#   description: "block x"     # default: ""
+#   enabled: true              # default: true
+#   action: "block"            # default: block
+#   priority: 1                # default: null
+#   filter:
+#     expression: "ip.src ne 127.0.0.1"
+#     description: ""          # default: ""
+
+---
+# Filter found from quick and lazy Google search,
+# apologies to these countries.
+- friendly_name: "malicious_countries"
+  description: "Block Most Malicious Countries"
+  action: "block"
+  filter:
+    expression: >-
+      (ip.geoip.country in {"BR" "CN" "DE" "IR" "IT" "NL" "AN" "RU" "TH" "UA" "VN"})
+      or
+      (ip.geoip.continent eq "AF")
