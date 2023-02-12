@@ -95,6 +95,9 @@
 - name: terraform-cloudflare-record
   description: ""
   public: true
+  template:
+    owner: browningluke-tf
+    repo: tf-template
   has:
     downloads: false
     issues: false
@@ -106,6 +109,9 @@
 - name: terraform-cloudflare-rule-transform
   description: ""
   public: true
+  template:
+    owner: browningluke-tf
+    repo: tf-template
   has:
     downloads: false
     issues: false
@@ -117,6 +123,9 @@
 - name: terraform-cloudflare-rule-page
   description: ""
   public: true
+  template:
+    owner: browningluke-tf
+    repo: tf-template
   has:
     downloads: false
     issues: false
@@ -128,6 +137,9 @@
 - name: terraform-cloudflare-rule-redirect
   description: ""
   public: true
+  template:
+    owner: browningluke-tf
+    repo: tf-template
   has:
     downloads: false
     issues: false
@@ -139,6 +151,9 @@
 - name: terraform-cloudflare-rule-firewall
   description: ""
   public: true
+  template:
+    owner: browningluke-tf
+    repo: tf-template
   has:
     downloads: false
     issues: false
