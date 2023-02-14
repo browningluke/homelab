@@ -32,7 +32,7 @@
     repo: "browningluke-org/homelab"
     working_dir: "terraform/github/browningluke-tf"
 
-# ==== Github ====
+# ==== Cloudflare ====
 - name: cloudflare-browningluke
   description: ""
   project: homelab
