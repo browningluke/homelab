@@ -56,7 +56,7 @@
 - name: terraform-tfe-organization
   description: ""
   public: true
-  archived: true
+  archived: false
   template:
     owner: browningluke-tf
     repo: tf-template
