@@ -12,14 +12,14 @@
 #     branch: "some_branch"     # default: default branch
 
 ---
-# ==== Clouds =====
-# Sol
+# ==== Solis ====
 - name: sol-ds
-  description: "test"
+  description: ""
   project: homelab
-  tags: ["sol", "pve"]
+  execution_mode: local
+  tags: ['sol', 'pve']
   vcs:
-    repo: "browningluke/homelab"
+    repo: "browningluke-org/homelab"
     working_dir: "terraform/sol/swarms/sol-ds"
 
 # ==== Github ====
@@ -27,17 +27,17 @@
   description: ""
   project: homelab
   execution_mode: remote
-  tags: ["meta", "github"]
+  tags: ['github', 'meta']
   vcs:
-    repo: "browningluke/homelab"
+    repo: "browningluke-org/homelab"
     working_dir: "terraform/github/browningluke-tf"
 
-# ==== TFC ====
-- name: tfc-browningluke
+# ==== Github ====
+- name: cloudflare-browningluke
   description: ""
   project: homelab
   execution_mode: remote
-  tags: ["meta", "tfc"]
+  tags: ['cloudflare', 'meta']
   vcs:
-    repo: "browningluke/homelab"
-    working_dir: "terraform/tfc/browningluke"
+    repo: "browningluke-org/homelab"
+    working_dir: "terraform/networking/cloudflare/browningluke.dev"
