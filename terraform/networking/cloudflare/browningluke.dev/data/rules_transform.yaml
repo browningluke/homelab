@@ -1,0 +1,28 @@
+# ==== examples ====
+# example rewrite_url definition
+# rewrite_url:
+#   - name: "my rewrite"
+#     enabled: false            # default: true
+#     expression: '(http.host eq "example.com")'
+#     path:                     # default: preserve
+#       value: 'concat("/file",http.request.uri.path)'
+#       dynamic: true           # default: false
+#     query:                    # default: preserve
+#       value: "example=true"
+#       dynamic: false          # default: false
+
+---
+rewrite_url:
+  - name: "Rewrite File"
+    expression: '(http.request.method eq "GET" and http.host eq "cdn.browningluke.dev")'
+    path:
+      value: 'concat("/file/browningluke-static",http.request.uri.path)'
+      dynamic: true
+  - name: "Resume Redirect"
+    expression: '(http.host eq "resume.browningluke.dev")'
+    path:
+      value: '/browningluke-latest.pdf'
+      dynamic: false
+    query:
+      value: " "
+      dynamic: false

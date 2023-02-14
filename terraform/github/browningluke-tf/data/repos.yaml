@@ -2,6 +2,7 @@
 # - name: my-repo
 #   description: "my desc"  # default: ""
 #   public: true            # defaults: false
+#   archived: true          # defaults: false
 #   has:
 #     downloads: false      # default: true
 #     issues: false         # default: true
@@ -18,7 +19,7 @@
 #       rebase: true        # default: true
 
 ---
-# Templates
+# ==== Templates ====
 - name: tf-template
   description: ""
   public: true
@@ -28,8 +29,7 @@
     issues: false
     projects: false
     wiki: false
-  init: true
-  gitignore: Terraform
+  init: false
   merge:
     auto: false
     delete_branch: false
@@ -38,7 +38,7 @@
       squash: true
       rebase: true
 
-# Terraform Modules
+# ==== Terraform Modules ====
 - name: terraform-github-repo
   description: ""
   public: true
@@ -56,6 +56,7 @@
 - name: terraform-tfe-organization
   description: ""
   public: true
+  archived: true
   template:
     owner: browningluke-tf
     repo: tf-template
@@ -67,6 +68,7 @@
   init: true
   gitignore: Terraform
 
+# Proxmox
 - name: terraform-pve-cloud-init
   description: ""
   public: true
@@ -89,7 +91,78 @@
   init: true
   gitignore: Terraform
 
-# Supporting repos
+# Cloudflare
+- name: terraform-cloudflare-record
+  description: ""
+  public: true
+  template:
+    owner: browningluke-tf
+    repo: tf-template
+  has:
+    downloads: false
+    issues: false
+    projects: false
+    wiki: false
+  init: true
+  gitignore: Terraform
+
+- name: terraform-cloudflare-rule-transform
+  description: ""
+  public: true
+  template:
+    owner: browningluke-tf
+    repo: tf-template
+  has:
+    downloads: false
+    issues: false
+    projects: false
+    wiki: false
+  init: true
+  gitignore: Terraform
+
+- name: terraform-cloudflare-rule-page
+  description: ""
+  public: true
+  template:
+    owner: browningluke-tf
+    repo: tf-template
+  has:
+    downloads: false
+    issues: false
+    projects: false
+    wiki: false
+  init: true
+  gitignore: Terraform
+
+- name: terraform-cloudflare-rule-redirect
+  description: ""
+  public: true
+  template:
+    owner: browningluke-tf
+    repo: tf-template
+  has:
+    downloads: false
+    issues: false
+    projects: false
+    wiki: false
+  init: true
+  gitignore: Terraform
+
+- name: terraform-cloudflare-rule-firewall
+  description: ""
+  public: true
+  template:
+    owner: browningluke-tf
+    repo: tf-template
+  has:
+    downloads: false
+    issues: false
+    projects: false
+    wiki: false
+  init: true
+  gitignore: Terraform
+
+# ==== Supporting repos ====
 - name: dhcp-reservations
   description: "Module for managing DHCP reservations in OPNsense"
   public: true

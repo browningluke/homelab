@@ -4,7 +4,7 @@ terraform {
     organization = "browningluke"
 
     workspaces {
-      name = "tfc-browningluke"
+      name = "cloudflare-browningluke"
     }
   }
 }
