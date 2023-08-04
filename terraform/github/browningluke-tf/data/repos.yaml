@@ -172,3 +172,13 @@
     projects: false
     wiki: false
   init: true
+
+- name: sandbox
+  description: ""
+  public: true
+  has:
+    downloads: false
+    issues: false
+    projects: false
+    wiki: false
+  init: true
