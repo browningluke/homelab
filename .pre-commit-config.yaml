@@ -1,0 +1,18 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.3.0
+    hooks:
+    -   id: check-yaml
+        exclude: ^_archive/
+    -   id: end-of-file-fixer
+        exclude: ^_archive/
+    -   id: trailing-whitespace
+        exclude: ^_archive/
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.77.1
+    hooks:
+      - id: terraform_fmt
+      - id: terraform_docs
+        args:
+          - markdown table --output-file README.md .
+      - id: terraform_tflint

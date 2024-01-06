@@ -1,0 +1,40 @@
+name: Ansible Lint
+
+on:
+  push:
+    branches:
+      - rewritev2/**
+      - main
+    paths:
+      - 'ansible/**'
+  pull_request:
+    branches:
+      - rewrite_v2
+      - main
+    paths:
+      - 'ansible/**'
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # needed for progressive mode to work
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - run: pip install ansible-lint
+
+      - run: bash scripts/galaxy_install.sh
+        working-directory: ./ansible
+
+      - run: ansible-lint --offline --profile production *
+        working-directory: ./ansible
+        if: github.event_name == 'push'
+
+      - run: ansible-lint --offline --progressive --profile production *
+        working-directory: ./ansible
+        if: github.event_name == 'pull_request'

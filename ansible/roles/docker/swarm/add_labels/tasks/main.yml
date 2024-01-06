@@ -1,0 +1,7 @@
+---
+- name: Add labels
+  community.docker.docker_node:
+    hostname: "{{ item | replace('.' + domain, '') }}"
+    labels: "{{ hostvars[item]['node_labels'] }}"
+  when: hostvars[item]['node_labels'] is defined
+  loop: "{{ groups[swarm_all] }}"

@@ -1,0 +1,43 @@
+# example workspace definition
+# - name: my-workspace
+#   description: "my desc"      # default: ""
+#   project: my-project         # default: ""
+#   execution_mode: remote      # default: local
+#   auto_apply: false           # default: false
+#   speculative_plans: true     # default: true
+#   tags: ["tag1", "tag2"]      # default: []
+#   vcs:
+#     repo: "user/repo"         # default: no vcs trigger
+#     working_dir: "some/path"  # default: repo root
+#     branch: "some_branch"     # default: default branch
+
+---
+# ==== Solis ====
+- name: sol-ds
+  description: ""
+  project: homelab
+  execution_mode: local
+  tags: ['sol', 'pve']
+  vcs:
+    repo: "browningluke-org/homelab"
+    working_dir: "terraform/sol/swarms/sol-ds"
+
+# ==== Github ====
+- name: homelab-github-browningluke-tf
+  description: ""
+  project: homelab
+  execution_mode: remote
+  tags: ['github', 'meta']
+  vcs:
+    repo: "browningluke-org/homelab"
+    working_dir: "terraform/github/browningluke-tf"
+
+# ==== Cloudflare ====
+- name: cloudflare-browningluke
+  description: ""
+  project: homelab
+  execution_mode: remote
+  tags: ['cloudflare', 'meta']
+  vcs:
+    repo: "browningluke-org/homelab"
+    working_dir: "terraform/networking/cloudflare/browningluke.dev"

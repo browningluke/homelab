@@ -1,0 +1,37 @@
+---
+- name: (sol-ds) Install required system packages
+  hosts: swarm_sol_ds_all
+  become: true
+  roles:
+    - system/basic_packages
+
+- name: (sol-ds) Install & setup Docker
+  hosts: swarm_sol_ds_all
+  become: true
+  roles:
+    - docker/install
+    - docker/add_to_group
+
+- name: (sol-ds) Initialize swarm
+  hosts: swarm_sol_ds_root_manager
+  roles:
+    - docker/swarm/init
+
+- name: (sol-ds) Configure swarm workers
+  hosts: swarm_sol_ds_workers
+  roles:
+    - role: docker/swarm/worker_join
+      vars:
+        root_manager: swarm_sol_ds_root_manager
+
+- name: (sol-ds) Add node labels
+  hosts: swarm_sol_ds_root_manager
+  roles:
+    - role: docker/swarm/add_labels
+      vars:
+        swarm_all: swarm_sol_ds_all
+
+- name: (sol-ds) Add networks
+  hosts: swarm_sol_ds_root_manager
+  roles:
+    - role: docker/network/create

@@ -1,0 +1,5 @@
+---
+- name: Create network
+  community.docker.docker_network: "{{ item }}"
+  loop: "{{ hostvars[inventory_hostname]['networks'] }}"
+  when: hostvars[inventory_hostname]['networks'] is defined
