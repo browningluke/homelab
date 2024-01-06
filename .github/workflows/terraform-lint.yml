@@ -26,7 +26,7 @@ jobs:
 
       - name: Get changed js files excluding the docs folder
         id: changed-dirs
-        uses: tj-actions/changed-files@v35
+        uses: tj-actions/changed-files@v41
         with:
           dir_names: "true"
           files: |
